@@ -2,13 +2,18 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { BsFillEyeFill, BsFillEyeSlashFill, BsGoogle } from 'react-icons/bs';
 import { MdHome } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState('');
   const { login, setLoading, googleSignIn } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const to = location?.state?.from?.pathname || '/';
+
   const {
     register,
     handleSubmit,
@@ -16,11 +21,32 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    login();
+    login(data.email, data.password)
+      .then((res) => {
+        if (res.user) {
+          toast.success('Login Successful');
+          navigate(to);
+        }
+      })
+      .catch(() => {
+        setLoading(false);
+        setLoginError(
+          'Please check if you have entered a valid email or password',
+        );
+      });
   };
 
   const handleGoogleSignIn = () => {
-    console.log('google');
+    googleSignIn()
+      .then((res) => {
+        if (res.user) {
+          toast.success('Login Successful');
+          navigate(to);
+        }
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -89,7 +115,7 @@ const Login = () => {
             <input
               type='submit'
               value='Login'
-              className='bg-main hover:bg-sub w-full rounded px-4 py-2 font-bold text-white duration-300'
+              className='w-full cursor-pointer rounded bg-blue-500 px-4 py-2 font-bold text-white duration-300'
             />
           </form>
 
@@ -115,7 +141,7 @@ const Login = () => {
             </p>
             <Link
               to='/signUp'
-              className='border-main hover:bg-main border-b-2 border-t-2 border-t-[#ffffff00] px-2 py-1 font-bold duration-300 hover:border-t-2 hover:text-blue-500'
+              className='border-main border-b-2 border-t-2 border-t-[#ffffff00] px-2 py-1 font-bold duration-300 hover:border-t-2 hover:text-blue-500'
             >
               Sign up
             </Link>
