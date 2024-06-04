@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [loginError, setLoginError] = useState('');
   const {
     register,
     handleSubmit,
@@ -38,8 +39,18 @@ const Login = () => {
               placeholder='Email address'
               id='eamil'
               className='focus:border-main placeholder-customBlack w-full border-b-[1px] border-[lightgray] bg-transparent pb-2 transition-all duration-500 focus:outline-none'
+              {...register('email', {
+                required: {
+                  value: true,
+                  message: 'Must enter an Email',
+                },
+              })}
             />
-
+            {errors.email && (
+              <p className='text-sm font-semibold text-red-500'>
+                {errors.email.message}
+              </p>
+            )}
             <div className='relative flex w-full items-center justify-center'>
               <input
                 type={showPassword ? 'text' : 'password'}
@@ -47,6 +58,12 @@ const Login = () => {
                 placeholder='Password'
                 id='password'
                 className='focus:border-main placeholder-customBlack w-full border-b-[1px] border-[lightgray] bg-transparent pb-2 transition-all duration-500 focus:outline-none'
+                {...register('password', {
+                  required: {
+                    value: true,
+                    message: 'Must enter a password',
+                  },
+                })}
               />
               <span
                 onClick={() => setShowPassword(!showPassword)}
@@ -56,7 +73,17 @@ const Login = () => {
                 {showPassword ? <BsFillEyeSlashFill /> : <BsFillEyeFill />}{' '}
               </span>
             </div>
-
+            {errors.password ? (
+              <p className='font-noto text-sm font-semibold text-red-500'>
+                {errors.Password.message}
+              </p>
+            ) : loginError ? (
+              <p className='font-noto text-sm font-semibold text-red-500'>
+                {loginError}
+              </p>
+            ) : (
+              <></>
+            )}
             <input
               type='submit'
               value='Login'
@@ -86,7 +113,7 @@ const Login = () => {
             </p>
             <Link
               to='/signUp'
-              className='border-main hover:bg-main border-b-2 border-t-2 border-t-[#ffffff00] px-2 py-1 font-bold duration-300 hover:border-t-2 hover:text-white'
+              className='border-main hover:bg-main border-b-2 border-t-2 border-t-[#ffffff00] px-2 py-1 font-bold duration-300 hover:border-t-2 hover:text-blue-500'
             >
               Sign up
             </Link>
