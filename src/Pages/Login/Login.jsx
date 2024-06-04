@@ -16,7 +16,7 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    login();
   };
 
   const handleGoogleSignIn = () => {
