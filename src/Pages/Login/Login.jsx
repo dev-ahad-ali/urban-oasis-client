@@ -3,10 +3,12 @@ import { useForm } from 'react-hook-form';
 import { BsFillEyeFill, BsFillEyeSlashFill, BsGoogle } from 'react-icons/bs';
 import { MdHome } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+import useAuth from '../../Hooks/useAuth';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState('');
+  const { login, setLoading, googleSignIn } = useAuth();
   const {
     register,
     handleSubmit,

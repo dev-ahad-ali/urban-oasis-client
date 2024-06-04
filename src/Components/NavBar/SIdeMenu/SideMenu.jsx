@@ -8,9 +8,10 @@ import {
   ListItemPrefix,
 } from '@material-tailwind/react';
 import { FaHome } from 'react-icons/fa';
+import { IoExit } from 'react-icons/io5';
 import { NavLink } from 'react-router-dom';
 
-const SideMenu = ({ open, closeSideMenu }) => {
+const SideMenu = ({ open, closeSideMenu, user, logout }) => {
   return (
     <Drawer open={open} onClose={closeSideMenu} className='bg-offWhite'>
       <div className='mb-2 flex items-center justify-between p-4'>
@@ -116,9 +117,20 @@ const SideMenu = ({ open, closeSideMenu }) => {
           Tables
         </ListItem>
       </List>
-      <Button className='ml-5 mt-3' size='sm'>
-        Documentation
-      </Button>
+      {user && (
+        <div className='flex min-h-full items-center'>
+          <div className='mb-2 h-fit w-full'>
+            <Button
+              onClick={logout}
+              variant='text'
+              className='font-title border-customBlack flex w-full items-center justify-between gap-2 rounded-none border-t-2 text-lg font-bold'
+            >
+              Logout
+              <IoExit className='text-3xl' />
+            </Button>
+          </div>
+        </div>
+      )}
     </Drawer>
   );
 };

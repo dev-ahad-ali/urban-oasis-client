@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import SideMenu from './SIdeMenu/SideMenu';
-import { Button } from '@material-tailwind/react';
+import { Avatar, Badge, Button, Spinner } from '@material-tailwind/react';
 import { CgMenuRightAlt } from 'react-icons/cg';
 import logo from '../../assets/img/logo.png';
 import { Link } from 'react-router-dom';
+import useAuth from '../../Hooks/useAuth';
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
+  const { user, loading, logout } = useAuth();
 
   const openSideMenu = () => setOpen(true);
   const closeSideMenu = () => setOpen(false);
@@ -24,15 +26,33 @@ const NavBar = () => {
             <CgMenuRightAlt />
             Menu
           </Button>
-          <SideMenu open={open} closeSideMenu={closeSideMenu} />
+          <SideMenu
+            open={open}
+            closeSideMenu={closeSideMenu}
+            user={user}
+            logout={logout}
+          />
         </div>
         <div>
           <img src={logo} alt='logo' className='h-[50px]' />
         </div>
         <div>
-          <Link to={'/login'}>
-            <Button>Login</Button>
-          </Link>
+          {loading ? (
+            <Spinner color='indigo' />
+          ) : user ? (
+            <Badge
+              placement='top-end'
+              overlap='circular'
+              color='green'
+              withBorder
+            >
+              <Avatar src={user?.photoURL} alt='avatar' />
+            </Badge>
+          ) : (
+            <Link to={'/login'}>
+              <Button>Login</Button>
+            </Link>
+          )}
         </div>
       </div>
     </nav>
