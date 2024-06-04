@@ -3,6 +3,7 @@ import SideMenu from './SIdeMenu/SideMenu';
 import { Button } from '@material-tailwind/react';
 import { CgMenuRightAlt } from 'react-icons/cg';
 import logo from '../../assets/img/logo.png';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
@@ -29,7 +30,9 @@ const NavBar = () => {
           <img src={logo} alt='logo' className='h-[50px]' />
         </div>
         <div>
-          <Button>Login</Button>
+          <Link to={'/login'}>
+            <Button>Login</Button>
+          </Link>
         </div>
       </div>
     </nav>
