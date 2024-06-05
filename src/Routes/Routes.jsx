@@ -30,6 +30,11 @@ const router = createBrowserRouter([
     path: '/dashboard',
     element: <DashboardLayout />,
     errorElement: <ErrorPage />,
+    children: [
+      {
+        path: '/dashboard/AdminHome',
+      },
+    ],
   },
 ]);
 

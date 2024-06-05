@@ -5,6 +5,8 @@ import 'react-toastify/dist/ReactToastify.css';
 const DashboardLayout = () => {
   return (
     <>
+      <div></div>
+
       <Outlet />
       <ToastContainer />
     </>
