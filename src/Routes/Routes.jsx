@@ -5,6 +5,7 @@ import ErrorPage from '../Pages/ErrorPage/ErrorPage';
 import DashboardLayout from '../Layouts/DashboardLayout';
 import Login from '../Pages/Login/Login';
 import SignUp from '../Pages/SignUp/SignUp';
+import AdminHome from '../Pages/Dashboard/AdminHome/AdminHome';
 
 const router = createBrowserRouter([
   {
@@ -32,7 +33,8 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '/dashboard/AdminHome',
+        path: '/dashboard/adminHome',
+        element: <AdminHome />,
       },
     ],
   },
