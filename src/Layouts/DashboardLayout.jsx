@@ -1,19 +1,16 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import logo from '../assets/img/logo.png';
 
 const DashboardLayout = () => {
   return (
     <>
       <section className='flex'>
         <aside className='flex h-screen w-64 flex-col overflow-y-auto border-r bg-customBlack px-5 py-8 dark:border-gray-700 dark:bg-gray-900 rtl:border-l rtl:border-r-0'>
-          <a href='#'>
-            <img
-              className='h-7 w-auto'
-              src='https://merakiui.com/images/logo.svg'
-              alt=''
-            />
-          </a>
+          <Link to={'/'}>
+            <img className='h-8' src={logo} alt='' />
+          </Link>
 
           <div className='mt-6 flex flex-1 flex-col justify-between'>
             <nav className='-mx-3 space-y-6'>
@@ -38,7 +35,7 @@ const DashboardLayout = () => {
                 </NavLink>
 
                 <NavLink
-                  to={'/manageUsers'}
+                  to={'/dashboard/manageUsers'}
                   className='flex transform items-center rounded-lg px-3 py-2 text-gray-600 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-gray-200'
                   href='#'
                 >

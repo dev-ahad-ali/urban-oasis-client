@@ -5,7 +5,8 @@ import ErrorPage from '../Pages/ErrorPage/ErrorPage';
 import DashboardLayout from '../Layouts/DashboardLayout';
 import Login from '../Pages/Login/Login';
 import SignUp from '../Pages/SignUp/SignUp';
-import AdminHome from '../Pages/Dashboard/AdminHome/AdminHome';
+import AdminHome from '../Pages/Dashboard/Admin/AdminHome/AdminHome';
+import ManageUsers from '../Pages/Dashboard/Admin/ManageUsers/ManageUsers';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/adminHome',
         element: <AdminHome />,
+      },
+      {
+        path: '/dashboard/manageUsers',
+        element: <ManageUsers />,
       },
     ],
   },
