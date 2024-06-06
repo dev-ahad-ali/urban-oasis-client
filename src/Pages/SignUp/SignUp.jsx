@@ -12,7 +12,7 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { createUser, updateUser } = useAuth();
+  const { createUser, updateUser, logout } = useAuth();
   const axiosPublic = useAxiosPublic();
 
   const {
@@ -46,6 +46,7 @@ const SignUp = () => {
             if (res.data.insertedId) {
               reset();
               toast.success('User created successfully');
+              logout();
             }
           });
         });
@@ -71,7 +72,7 @@ const SignUp = () => {
             name='name'
             placeholder='Name'
             id='name'
-            className='focus:border-main placeholder-customBlack w-full border-b-[1px] border-[lightgray] bg-transparent pb-2 transition-all duration-500 focus:outline-none'
+            className='focus:border-main w-full border-b-[1px] border-[lightgray] bg-transparent pb-2 placeholder-customBlack transition-all duration-500 focus:outline-none'
             {...register('name', {
               required: {
                 value: true,
@@ -91,7 +92,7 @@ const SignUp = () => {
             name='email'
             placeholder='Email address'
             id='eamil'
-            className='focus:border-main placeholder-customBlack w-full border-b-[1px] border-[lightgray] bg-transparent pb-2 transition-all duration-500 focus:outline-none'
+            className='focus:border-main w-full border-b-[1px] border-[lightgray] bg-transparent pb-2 placeholder-customBlack transition-all duration-500 focus:outline-none'
             {...register('email', {
               required: {
                 value: true,
@@ -114,7 +115,7 @@ const SignUp = () => {
                 name='password'
                 placeholder='Password'
                 id='password'
-                className='focus:border-main placeholder-customBlack w-full border-b-[1px] border-[lightgray] bg-transparent pb-2 transition-all duration-500 focus:outline-none'
+                className='focus:border-main w-full border-b-[1px] border-[lightgray] bg-transparent pb-2 placeholder-customBlack transition-all duration-500 focus:outline-none'
                 {...register('password', {
                   required: {
                     value: true,

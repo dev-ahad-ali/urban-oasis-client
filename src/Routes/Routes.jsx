@@ -7,6 +7,7 @@ import Login from '../Pages/Login/Login';
 import SignUp from '../Pages/SignUp/SignUp';
 import AdminHome from '../Pages/Dashboard/Admin/AdminHome/AdminHome';
 import ManageUsers from '../Pages/Dashboard/Admin/ManageUsers/ManageUsers';
+import AdminProfile from '../Pages/Dashboard/Admin/AdminProfile/AdminProfile';
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/manageUsers',
         element: <ManageUsers />,
+      },
+      {
+        path: '/dashboard/adminProfile',
+        element: <AdminProfile />,
       },
     ],
   },
