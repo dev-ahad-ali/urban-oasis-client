@@ -114,7 +114,15 @@ const ManageUsers = () => {
                     <td className={classes}>
                       <div className='flex items-center gap-6'>
                         <Tooltip content='Make Admin'>
-                          <IconButton variant='text'>
+                          <IconButton
+                            onClick={() => {
+                              setModalStatus('userUpdate');
+                              setUpdateRole('admin');
+                              setUserEmail(email);
+                              setOpen(true);
+                            }}
+                            variant='text'
+                          >
                             <MdAdminPanelSettings className='h-8 w-8 text-green-400' />
                           </IconButton>
                         </Tooltip>
