@@ -8,6 +8,11 @@ import SignUp from '../Pages/SignUp/SignUp';
 import AdminHome from '../Pages/Dashboard/Admin/AdminHome/AdminHome';
 import ManageUsers from '../Pages/Dashboard/Admin/ManageUsers/ManageUsers';
 import AdminProfile from '../Pages/Dashboard/Admin/AdminProfile/AdminProfile';
+import AgentProfile from '../Pages/Dashboard/Agent/AgentProfile/AgentProfile';
+import AddProperty from '../Pages/Dashboard/Agent/AddProperty/AddProperty';
+import AddedProperties from '../Pages/Dashboard/Agent/AddedProperties/AddedProperties';
+import Offers from '../Pages/Dashboard/Agent/Offers/Offers';
+import SoldProperties from '../Pages/Dashboard/Agent/SoldProperties/SoldProperties';
 
 const router = createBrowserRouter([
   {
@@ -29,11 +34,16 @@ const router = createBrowserRouter([
       },
     ],
   },
+
+  //  Dashboard Routes ----
+
   {
     path: '/dashboard',
     element: <DashboardLayout />,
     errorElement: <ErrorPage />,
     children: [
+      // Admin Routes -----
+
       {
         path: '/dashboard/adminHome',
         element: <AdminHome />,
@@ -45,6 +55,29 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/adminProfile',
         element: <AdminProfile />,
+      },
+
+      // Agent Routes-----
+
+      {
+        path: '/dashboard/agentProfile',
+        element: <AgentProfile />,
+      },
+      {
+        path: '/dashboard/addProperty',
+        element: <AddProperty />,
+      },
+      {
+        path: '/dashboard/addedProperties',
+        element: <AddedProperties />,
+      },
+      {
+        path: '/dashboard/offers',
+        element: <Offers />,
+      },
+      {
+        path: '/dashboard/soldProperties',
+        element: <SoldProperties />,
       },
     ],
   },

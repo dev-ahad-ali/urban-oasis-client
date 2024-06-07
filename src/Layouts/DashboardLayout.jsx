@@ -8,8 +8,7 @@ import UserLinks from '../Components/UserLinks/UserLinks';
 import AgentLinks from '../Components/AgentLinks/AgentLinks';
 
 const DashboardLayout = () => {
-  const { role } = useRole();
-
+  const { userRole } = useRole();
   return (
     <>
       <section className='flex'>
@@ -20,9 +19,9 @@ const DashboardLayout = () => {
 
           <div className='mt-6 flex flex-1 flex-col justify-between'>
             <nav className='-mx-3 space-y-6'>
-              {role === 'admin' ? (
+              {userRole === 'admin' ? (
                 <AdminLinks />
-              ) : role === 'agent' ? (
+              ) : userRole === 'agent' ? (
                 <AgentLinks />
               ) : (
                 <UserLinks />

@@ -10,8 +10,10 @@ import {
 import { FaHome } from 'react-icons/fa';
 import { IoExit } from 'react-icons/io5';
 import { NavLink } from 'react-router-dom';
+import useRole from '../../../Hooks/useRole';
 
 const SideMenu = ({ open, closeSideMenu, user, logout }) => {
+  const { userRole } = useRole();
   return (
     <Drawer open={open} onClose={closeSideMenu} className='bg-offWhite'>
       <div className='mb-2 flex items-center justify-between p-4'>
@@ -40,7 +42,9 @@ const SideMenu = ({ open, closeSideMenu, user, logout }) => {
         </IconButton>
       </div>
       <List>
-        <NavLink to={'/dashboard/adminHome'}>
+        <NavLink
+          to={`/dashboard/${userRole === 'admin' ? 'adminHome' : userRole === 'agent' ? 'agentProfile' : 'userProfile'}`}
+        >
           <ListItem>
             <ListItemPrefix>
               <svg
