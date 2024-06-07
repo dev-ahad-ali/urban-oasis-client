@@ -1,17 +1,13 @@
-import { Spinner } from '@material-tailwind/react';
 import useAuth from '../../Hooks/useAuth';
 import { Navigate, useLocation } from 'react-router-dom';
+import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner';
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
   const location = useLocation();
 
   if (loading) {
-    return (
-      <div className='bg-offWhite grid min-h-screen w-full place-items-center'>
-        <Spinner className='h-16 w-16 text-gray-900/50' />
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   if (user) {
