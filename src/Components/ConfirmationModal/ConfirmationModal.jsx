@@ -14,6 +14,7 @@ const ConfirmationModal = ({
   refetch,
   modalStatus,
   role,
+  id,
   email,
 }) => {
   const axiosSecure = useAxiosSecure();
@@ -26,6 +27,16 @@ const ConfirmationModal = ({
       setOpen(false);
     }
   };
+
+  const handleUserDelete = async (id) => {
+    const deleteRes = await axiosSecure.delete(`/users/${id}`);
+    if (deleteRes.data.deletedCount > 0) {
+      toast.success(`User Deleted Successfully`);
+      refetch();
+      setOpen(false);
+    }
+  };
+
   return (
     <Dialog
       open={open}
@@ -48,13 +59,23 @@ const ConfirmationModal = ({
         >
           <span>Cancel</span>
         </Button>
-        <Button
-          variant='gradient'
-          color='green'
-          onClick={() => handleChangeRole(email, role)}
-        >
-          <span>{modalStatus === 'userUpdate' ? 'Change' : 'Confirm'}</span>
-        </Button>
+        {modalStatus === 'userUpdate' ? (
+          <Button
+            variant='gradient'
+            color='green'
+            onClick={() => handleChangeRole(email, role)}
+          >
+            <span>Change</span>
+          </Button>
+        ) : (
+          <Button
+            variant='gradient'
+            color='green'
+            onClick={() => handleUserDelete(id)}
+          >
+            <span>Delete</span>
+          </Button>
+        )}
       </DialogFooter>
     </Dialog>
   );

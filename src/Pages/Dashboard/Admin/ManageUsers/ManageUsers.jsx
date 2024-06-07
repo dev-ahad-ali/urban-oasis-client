@@ -19,6 +19,7 @@ const ManageUsers = () => {
   const [modalStatus, setModalStatus] = useState('');
   const [updateRole, setUpdateRole] = useState('');
   const [userEmail, setUserEmail] = useState('');
+  const [userId, setUserId] = useState(null);
   const axiosSecure = useAxiosSecure();
 
   const {
@@ -148,7 +149,15 @@ const ManageUsers = () => {
                     {/* Delete User */}
                     <td className={classes}>
                       <Tooltip content='Delete User'>
-                        <IconButton variant='text'>
+                        <IconButton
+                          onClick={() => {
+                            setModalStatus('userDelete');
+                            setUserId(_id);
+                            setUserEmail(email);
+                            setOpen(true);
+                          }}
+                          variant='text'
+                        >
                           <FaTrash className='h-4 w-4 text-red-400' />
                         </IconButton>
                       </Tooltip>
@@ -168,6 +177,7 @@ const ManageUsers = () => {
         refetch={refetch}
         email={userEmail}
         role={updateRole}
+        id={userId}
         modalStatus={modalStatus}
       />
     </>
