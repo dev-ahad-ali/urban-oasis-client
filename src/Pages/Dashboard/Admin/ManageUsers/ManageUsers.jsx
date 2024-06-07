@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
 import {
   Avatar,
+  Button,
   Chip,
   IconButton,
   Tooltip,
@@ -65,9 +66,7 @@ const ManageUsers = () => {
             <tbody>
               {users.map(({ _id, profileImage, name, email, role }, index) => {
                 const isLast = index === users.length - 1;
-                const classes = isLast
-                  ? 'p-4'
-                  : 'p-4 border-b border-blue-gray-50';
+                const classes = isLast ? 'p-4' : 'p-4 border-b border-gray-600';
 
                 return (
                   <tr key={_id}>
@@ -134,7 +133,18 @@ const ManageUsers = () => {
                       </div>
                     </td>
                     {/* Mark as Fraud */}
-                    <td></td>
+                    <td className={classes}>
+                      {role === 'agent' && (
+                        <Button
+                          size='sm'
+                          color='red'
+                          variant='outlined'
+                          className='rounded-none capitalize'
+                        >
+                          Mark as Fraud
+                        </Button>
+                      )}
+                    </td>
                     {/* Delete User */}
                     <td className={classes}>
                       <Tooltip content='Delete User'>
