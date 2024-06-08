@@ -40,7 +40,7 @@ const AddProperty = () => {
         status: 'pending',
       };
 
-      const propertyRes = await axiosSecure.post('/property', property);
+      const propertyRes = await axiosSecure.post('/properties', property);
 
       if (propertyRes.data.insertedId) {
         toast.success('Property Added successfully');
