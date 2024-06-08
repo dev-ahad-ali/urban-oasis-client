@@ -2,6 +2,8 @@ import { Button, Input, Textarea } from '@material-tailwind/react';
 import useAuth from '../../../../Hooks/useAuth';
 import { useForm } from 'react-hook-form';
 import useAxiosPublic from '../../../../Hooks/useAxiosPublic';
+import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
+import { toast } from 'react-toastify';
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -9,6 +11,7 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 const AddProperty = () => {
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
 
   const {
     register,
@@ -36,9 +39,14 @@ const AddProperty = () => {
         image: imageRes.data.data.display_url,
         status: 'pending',
       };
-      console.log(property);
+
+      const propertyRes = await axiosSecure.post('/property', property);
+
+      if (propertyRes.data.insertedId) {
+        toast.success('Property Added successfully');
+        reset();
+      }
     }
-    reset();
   };
 
   return (
