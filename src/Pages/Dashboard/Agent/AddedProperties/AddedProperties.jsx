@@ -10,10 +10,15 @@ import {
 } from '@material-tailwind/react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { FaArrowRightArrowLeft } from 'react-icons/fa6';
+import { useState } from 'react';
+import DeletePropertyModal from '../../../../Components/DeletePropertyModal/DeletePropertyModal';
 
 const AddedProperties = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const [open, setOpen] = useState(false);
+  const [id, setId] = useState(null);
+  const [name, setName] = useState('');
 
   const {
     data: addedProperties = [],
@@ -34,7 +39,7 @@ const AddedProperties = () => {
   }
 
   return (
-    <div>
+    <section>
       <h2 className='text-3xl'>Added Properties</h2>
       <div>
         <table className='mt-4 w-full min-w-max table-auto text-left'>
@@ -118,11 +123,18 @@ const AddedProperties = () => {
                       <div className='flex items-center gap-3'>
                         <Tooltip content='Update Property'>
                           <IconButton variant='text'>
-                            <FaEdit className='h-4 w-4 text-green-400' />
+                            <FaEdit className='text-xl text-green-400' />
                           </IconButton>
                         </Tooltip>
                         <Tooltip content='Delete User'>
-                          <IconButton variant='text'>
+                          <IconButton
+                            onClick={() => {
+                              setOpen(true);
+                              setId(_id);
+                              setName(title);
+                            }}
+                            variant='text'
+                          >
                             <FaTrash className='h-4 w-4 text-red-400' />
                           </IconButton>
                         </Tooltip>
@@ -135,7 +147,15 @@ const AddedProperties = () => {
           </tbody>
         </table>
       </div>
-    </div>
+      {/* delete modal */}
+      <DeletePropertyModal
+        open={open}
+        setOpen={setOpen}
+        name={name}
+        id={id}
+        refetch={refetch}
+      />
+    </section>
   );
 };
 
