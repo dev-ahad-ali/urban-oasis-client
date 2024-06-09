@@ -204,6 +204,7 @@ const ManageProperties = () => {
         verifyStatus={verifyStatus}
         propertyId={propertyId}
         propertyName={propertyName}
+        refetch={refetch}
       />
     </section>
   );

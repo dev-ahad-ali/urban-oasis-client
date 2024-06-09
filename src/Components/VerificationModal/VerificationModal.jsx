@@ -4,6 +4,8 @@ import {
   DialogFooter,
   DialogHeader,
 } from '@material-tailwind/react';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import { toast } from 'react-toastify';
 
 const VerificationModal = ({
   verifyOpen,
@@ -11,7 +13,21 @@ const VerificationModal = ({
   verifyStatus,
   propertyId,
   propertyName,
+  refetch,
 }) => {
+  const axiosSecure = useAxiosSecure();
+
+  const handleVerify = async (id, status) => {
+    const verifyRes = await axiosSecure.patch(`/propertyVerify/${id}`, {
+      status,
+    });
+    if (verifyRes.data.modifiedCount > 0) {
+      refetch();
+      setVerifyOpen(false);
+      toast.success(`Property ${status}`);
+    }
+  };
+
   return (
     <Dialog open={verifyOpen}>
       <DialogHeader>{propertyName}</DialogHeader>
@@ -25,11 +41,19 @@ const VerificationModal = ({
           <span>Cancel</span>
         </Button>
         {verifyStatus === 'verified' ? (
-          <Button variant='gradient' color='green'>
+          <Button
+            onClick={() => handleVerify(propertyId, verifyStatus)}
+            variant='gradient'
+            color='green'
+          >
             <span>Verify</span>
           </Button>
         ) : (
-          <Button variant='gradient' color='red'>
+          <Button
+            onClick={() => handleVerify(propertyId, verifyStatus)}
+            variant='gradient'
+            color='red'
+          >
             <span>Reject</span>
           </Button>
         )}
