@@ -11,9 +11,15 @@ import { useQuery } from '@tanstack/react-query';
 import LoadingSpinner from '../../../../Components/LoadingSpinner/LoadingSpinner';
 import { GiCheckMark } from 'react-icons/gi';
 import { ImCross } from 'react-icons/im';
+import { useState } from 'react';
+import VerificationModal from '../../../../Components/VerificationModal/VerificationModal';
 
 const ManageProperties = () => {
   const axiosSecure = useAxiosSecure();
+  const [propertyId, setPropertyId] = useState(null);
+  const [propertyName, setPropertyName] = useState('');
+  const [verifyOpen, setVerifyOpen] = useState(false);
+  const [verifyStatus, setVerifyStatus] = useState('');
 
   const {
     data: allProperties,
@@ -157,12 +163,28 @@ const ManageProperties = () => {
                     <td className={classes}>
                       <div className='flex items-center gap-3'>
                         <Tooltip content='Verify'>
-                          <IconButton variant='text'>
+                          <IconButton
+                            variant='text'
+                            onClick={() => {
+                              setPropertyId(_id);
+                              setVerifyStatus('verified');
+                              setPropertyName(title);
+                              setVerifyOpen(true);
+                            }}
+                          >
                             <GiCheckMark className='text-xl text-green-400' />
                           </IconButton>
                         </Tooltip>
                         <Tooltip content='Reject'>
-                          <IconButton variant='text'>
+                          <IconButton
+                            variant='text'
+                            onClick={() => {
+                              setPropertyId(_id);
+                              setVerifyStatus('rejected');
+                              setPropertyName(title);
+                              setVerifyOpen(true);
+                            }}
+                          >
                             <ImCross className='h-4 w-4 text-red-400' />
                           </IconButton>
                         </Tooltip>
@@ -175,6 +197,14 @@ const ManageProperties = () => {
           </tbody>
         </table>
       </div>
+      {/* Verification modal */}
+      <VerificationModal
+        verifyOpen={verifyOpen}
+        setVerifyOpen={setVerifyOpen}
+        verifyStatus={verifyStatus}
+        propertyId={propertyId}
+        propertyName={propertyName}
+      />
     </section>
   );
 };
