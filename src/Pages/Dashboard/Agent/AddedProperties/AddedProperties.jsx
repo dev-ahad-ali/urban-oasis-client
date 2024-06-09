@@ -3,6 +3,7 @@ import useAuth from '../../../../Hooks/useAuth';
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
 import LoadingSpinner from '../../../../Components/LoadingSpinner/LoadingSpinner';
 import {
+  Avatar,
   Chip,
   IconButton,
   Tooltip,
@@ -34,7 +35,15 @@ const AddedProperties = () => {
     },
   });
 
-  const TABLE_HEAD = ['Image', 'Name', 'Location', 'Price', 'Status', ''];
+  const TABLE_HEAD = [
+    'Image',
+    'Name',
+    'Location',
+    'Price',
+    'Agent Info',
+    'Status',
+    '',
+  ];
 
   if (propertiesPending) {
     return <LoadingSpinner />;
@@ -66,7 +75,17 @@ const AddedProperties = () => {
           <tbody>
             {addedProperties.map(
               (
-                { _id, title, location, minPrice, maxPrice, image, status },
+                {
+                  _id,
+                  title,
+                  location,
+                  minPrice,
+                  maxPrice,
+                  image,
+                  status,
+                  agentName,
+                  agentImage,
+                },
                 index,
               ) => {
                 const isLast = index === addedProperties.length - 1;
@@ -107,6 +126,18 @@ const AddedProperties = () => {
                         <FaArrowRightArrowLeft />
                         <p>${maxPrice}</p>
                       </div>
+                    </td>
+                    {/* Agent Info */}
+                    <td className={classes}>
+                      <dir className='flex items-center gap-4 px-0'>
+                        <Avatar
+                          src={agentImage}
+                          alt='avatar'
+                          size='sm'
+                          variant='rounded'
+                        />
+                        <p className='font-regular'>{agentName}</p>
+                      </dir>
                     </td>
                     {/* Status */}
                     <td className={classes}>

@@ -12,6 +12,7 @@ const AddProperty = () => {
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
+  console.log(user);
 
   const {
     register,
@@ -36,6 +37,7 @@ const AddProperty = () => {
         maxPrice: data.maxPrice,
         agentEmail: user?.email,
         agentName: user?.displayName,
+        agentImage: user?.photoUrl,
         image: imageRes.data.data.display_url,
         status: 'pending',
       };
@@ -144,7 +146,7 @@ const AddProperty = () => {
             <div>
               <Textarea
                 label='Property Description'
-                className='h-[140px] w-full'
+                className='h-[142px] w-full'
                 {...register('description', {
                   required: {
                     value: true,
