@@ -13,6 +13,7 @@ import AddProperty from '../Pages/Dashboard/Agent/AddProperty/AddProperty';
 import AddedProperties from '../Pages/Dashboard/Agent/AddedProperties/AddedProperties';
 import Offers from '../Pages/Dashboard/Agent/Offers/Offers';
 import SoldProperties from '../Pages/Dashboard/Agent/SoldProperties/SoldProperties';
+import ManageProperties from '../Pages/Dashboard/Admin/ManageProperties/ManageProperties';
 
 const router = createBrowserRouter([
   {
@@ -56,7 +57,10 @@ const router = createBrowserRouter([
         path: '/dashboard/adminProfile',
         element: <AdminProfile />,
       },
-
+      {
+        path: '/dashboard/manageProperties',
+        element: <ManageProperties />,
+      },
       // Agent Routes-----
 
       {

@@ -1,7 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
-import useAuth from '../../../../Hooks/useAuth';
-import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
-import LoadingSpinner from '../../../../Components/LoadingSpinner/LoadingSpinner';
 import {
   Avatar,
   Chip,
@@ -9,29 +5,25 @@ import {
   Tooltip,
   Typography,
 } from '@material-tailwind/react';
-import { FaEdit, FaTrash } from 'react-icons/fa';
 import { FaArrowRightArrowLeft } from 'react-icons/fa6';
-import { useState } from 'react';
-import DeletePropertyModal from '../../../../Components/DeletePropertyModal/DeletePropertyModal';
-import PropertyUpdateModal from '../../../../Components/PropertyUpdateModal/PropertyUpdateModal';
+import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
+import LoadingSpinner from '../../../../Components/LoadingSpinner/LoadingSpinner';
+import { GiCheckMark } from 'react-icons/gi';
+import { ImCross } from 'react-icons/im';
 
-const AddedProperties = () => {
-  const { user } = useAuth();
+const ManageProperties = () => {
   const axiosSecure = useAxiosSecure();
-  const [deleteOpen, setDeleteOpen] = useState(false);
-  const [updateOpen, setUpdateOpen] = useState(false);
-  const [id, setId] = useState(null);
-  const [name, setName] = useState('');
 
   const {
-    data: addedProperties = [],
-    isPending: propertiesPending,
+    data: allProperties,
     refetch,
+    isPending: allPropertiesPending,
   } = useQuery({
-    queryKey: [user?.email, 'addedProperties'],
+    queryKey: ['allProperties'],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/properties/${user?.email}`);
-      return res.data;
+      const propertyRes = await axiosSecure.get('/properties');
+      return propertyRes.data;
     },
   });
 
@@ -42,16 +34,16 @@ const AddedProperties = () => {
     'Price',
     'Agent Info',
     'Status',
-    '',
+    'Verify or Reject',
   ];
 
-  if (propertiesPending) {
+  if (allPropertiesPending) {
     return <LoadingSpinner />;
   }
 
   return (
     <section>
-      <h2 className='text-3xl'>Added Properties</h2>
+      <h2 className='text-3xl'>Manage Properties</h2>
       <div>
         <table className='mt-4 w-full min-w-max table-auto text-left'>
           <thead>
@@ -73,7 +65,7 @@ const AddedProperties = () => {
             </tr>
           </thead>
           <tbody>
-            {addedProperties.map(
+            {allProperties.map(
               (
                 {
                   _id,
@@ -85,10 +77,11 @@ const AddedProperties = () => {
                   status,
                   agentName,
                   agentImage,
+                  agentEmail,
                 },
                 index,
               ) => {
-                const isLast = index === addedProperties.length - 1;
+                const isLast = index === allProperties.length - 1;
                 const classes = isLast ? 'p-4' : 'p-4 border-b border-gray-600';
 
                 return (
@@ -136,7 +129,10 @@ const AddedProperties = () => {
                           size='sm'
                           variant='rounded'
                         />
-                        <p className='font-regular'>{agentName}</p>
+                        <div className='flex flex-col'>
+                          <p className='font-regular'>{agentName}</p>
+                          <p className='font-regular text-sm'>{agentEmail}</p>
+                        </div>
                       </dir>
                     </td>
                     {/* Status */}
@@ -157,30 +153,17 @@ const AddedProperties = () => {
                       </div>
                     </td>
 
-                    {/* Delete or Update */}
+                    {/* Verify or Reject */}
                     <td className={classes}>
                       <div className='flex items-center gap-3'>
-                        <Tooltip content='Update Property'>
-                          <IconButton
-                            onClick={() => {
-                              setUpdateOpen(true);
-                              setId(_id);
-                            }}
-                            variant='text'
-                          >
-                            <FaEdit className='text-xl text-green-400' />
+                        <Tooltip content='Verify'>
+                          <IconButton variant='text'>
+                            <GiCheckMark className='text-xl text-green-400' />
                           </IconButton>
                         </Tooltip>
-                        <Tooltip content='Delete User'>
-                          <IconButton
-                            onClick={() => {
-                              setDeleteOpen(true);
-                              setId(_id);
-                              setName(title);
-                            }}
-                            variant='text'
-                          >
-                            <FaTrash className='h-4 w-4 text-red-400' />
+                        <Tooltip content='Reject'>
+                          <IconButton variant='text'>
+                            <ImCross className='h-4 w-4 text-red-400' />
                           </IconButton>
                         </Tooltip>
                       </div>
@@ -192,23 +175,8 @@ const AddedProperties = () => {
           </tbody>
         </table>
       </div>
-      {/* delete modal */}
-      <DeletePropertyModal
-        deleteOpen={deleteOpen}
-        setDeleteOpen={setDeleteOpen}
-        name={name}
-        id={id}
-        refetch={refetch}
-      />
-      {/* Property Update Modal */}
-      <PropertyUpdateModal
-        updateOpen={updateOpen}
-        setUpdateOpen={setUpdateOpen}
-        id={id}
-        refetch={refetch}
-      />
     </section>
   );
 };
 
-export default AddedProperties;
+export default ManageProperties;
