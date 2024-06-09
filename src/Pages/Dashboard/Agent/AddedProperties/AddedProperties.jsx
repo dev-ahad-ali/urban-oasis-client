@@ -12,11 +12,13 @@ import { FaEdit, FaTrash } from 'react-icons/fa';
 import { FaArrowRightArrowLeft } from 'react-icons/fa6';
 import { useState } from 'react';
 import DeletePropertyModal from '../../../../Components/DeletePropertyModal/DeletePropertyModal';
+import PropertyUpdateModal from '../../../../Components/PropertyUpdateModal/PropertyUpdateModal';
 
 const AddedProperties = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const [open, setOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [updateOpen, setUpdateOpen] = useState(false);
   const [id, setId] = useState(null);
   const [name, setName] = useState('');
 
@@ -122,14 +124,20 @@ const AddedProperties = () => {
                     <td className={classes}>
                       <div className='flex items-center gap-3'>
                         <Tooltip content='Update Property'>
-                          <IconButton variant='text'>
+                          <IconButton
+                            onClick={() => {
+                              setUpdateOpen(true);
+                              setId(_id);
+                            }}
+                            variant='text'
+                          >
                             <FaEdit className='text-xl text-green-400' />
                           </IconButton>
                         </Tooltip>
                         <Tooltip content='Delete User'>
                           <IconButton
                             onClick={() => {
-                              setOpen(true);
+                              setDeleteOpen(true);
                               setId(_id);
                               setName(title);
                             }}
@@ -149,9 +157,16 @@ const AddedProperties = () => {
       </div>
       {/* delete modal */}
       <DeletePropertyModal
-        open={open}
-        setOpen={setOpen}
+        deleteOpen={deleteOpen}
+        setDeleteOpen={setDeleteOpen}
         name={name}
+        id={id}
+        refetch={refetch}
+      />
+      {/* Property Update Modal */}
+      <PropertyUpdateModal
+        updateOpen={updateOpen}
+        setUpdateOpen={setUpdateOpen}
         id={id}
         refetch={refetch}
       />
