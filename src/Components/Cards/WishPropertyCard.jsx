@@ -5,8 +5,8 @@ import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
-const WishPropertyCard = ({ wishProperty, wishRefetch }) => {
-  const { property, propertyPending } = usePropertyData(wishProperty.propertyId);
+const WishPropertyCard = ({ wishItem, wishRefetch }) => {
+  const { property, propertyPending } = usePropertyData(wishItem.propertyId);
   const { title, image, agentName, agentImage } = property;
   const axiosSecure = useAxiosSecure();
 
@@ -60,10 +60,10 @@ const WishPropertyCard = ({ wishProperty, wishRefetch }) => {
               </a>
             </div>
             <div className='flex items-center gap-2'>
-              <Link to={'/dashboard/makeOffer'}>
+              <Link to={'/dashboard/makeOffer'} state={wishItem}>
                 <Button>Make An Offer</Button>
               </Link>
-              <Button onClick={() => handleRemoveWish(wishProperty._id)}>Remove</Button>
+              <Button onClick={() => handleRemoveWish(wishItem._id)}>Remove</Button>
             </div>
           </div>
         </div>

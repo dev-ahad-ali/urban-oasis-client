@@ -9,7 +9,7 @@ const WishList = () => {
   const axiosSecure = useAxiosSecure();
 
   const {
-    data: wishProperties,
+    data: wishItems,
     isPending: wishListPending,
     refetch: wishRefetch,
   } = useQuery({
@@ -28,12 +28,8 @@ const WishList = () => {
     <div>
       <h2 className='text-3xl'>Wish List</h2>
       <div>
-        {wishProperties.map((wishProperty) => (
-          <WishPropertyCard
-            key={wishProperty._id}
-            wishProperty={wishProperty}
-            wishRefetch={wishRefetch}
-          />
+        {wishItems.map((wishItem) => (
+          <WishPropertyCard key={wishItem._id} wishItem={wishItem} wishRefetch={wishRefetch} />
         ))}
       </div>
     </div>
