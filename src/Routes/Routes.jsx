@@ -16,6 +16,10 @@ import SoldProperties from '../Pages/Dashboard/Agent/SoldProperties/SoldProperti
 import ManageProperties from '../Pages/Dashboard/Admin/ManageProperties/ManageProperties';
 import AllProperties from '../Pages/AllProperties/AllProperties';
 import PropertyDetails from '../Pages/PropertyDetails/PropertyDetails';
+import UserProfile from '../Pages/Dashboard/User/UserProfile/UserProfile';
+import WishList from '../Pages/Dashboard/User/WishList/WishList';
+import PropertyBought from '../Pages/Dashboard/User/PropertyBought/PropertyBought';
+import MyReviews from '../Pages/Dashboard/User/MyReviews/MyReviews';
 
 const router = createBrowserRouter([
   {
@@ -92,6 +96,25 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/soldProperties',
         element: <SoldProperties />,
+      },
+
+      //User Routes ----
+
+      {
+        path: '/dashboard/userProfile',
+        element: <UserProfile />,
+      },
+      {
+        path: '/dashboard/userWishList',
+        element: <WishList />,
+      },
+      {
+        path: '/dashboard/userPropertyBought',
+        element: <PropertyBought />,
+      },
+      {
+        path: '/dashboard/userReviews',
+        element: <MyReviews />,
       },
     ],
   },

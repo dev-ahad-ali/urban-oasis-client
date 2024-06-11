@@ -16,7 +16,7 @@ const PropertyDetails = () => {
 
   const handleWishList = async (id) => {
     const wishDetails = {
-      propertyID: id,
+      propertyId: id,
       userName: user?.displayName,
       userEmail: user?.email,
     };
