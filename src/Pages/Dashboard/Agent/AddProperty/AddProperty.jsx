@@ -12,7 +12,6 @@ const AddProperty = () => {
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
-  console.log(user);
 
   const {
     register,
@@ -37,7 +36,7 @@ const AddProperty = () => {
         maxPrice: data.maxPrice,
         agentEmail: user?.email,
         agentName: user?.displayName,
-        agentImage: user?.photoUrl,
+        agentImage: user?.photoURL,
         image: imageRes.data.data.display_url,
         status: 'pending',
       };
@@ -56,10 +55,7 @@ const AddProperty = () => {
       <h2 className='text-3xl'>AddProperty</h2>
 
       <div className='mt-12 min-h-full'>
-        <form
-          onSubmit={handleSubmit(handleAddProperty)}
-          className='flex flex-col gap-10'
-        >
+        <form onSubmit={handleSubmit(handleAddProperty)} className='flex flex-col gap-10'>
           <div>
             <Input
               color='black'
@@ -74,9 +70,7 @@ const AddProperty = () => {
               })}
             />
             {errors.title && (
-              <p className='text-sm font-semibold text-red-500'>
-                {errors.title.message}
-              </p>
+              <p className='text-sm font-semibold text-red-500'>{errors.title.message}</p>
             )}
           </div>
           <div className='grid grid-cols-2 gap-5'>
@@ -94,9 +88,7 @@ const AddProperty = () => {
                 })}
               />
               {errors.location && (
-                <p className='text-sm font-semibold text-red-500'>
-                  {errors.location.message}
-                </p>
+                <p className='text-sm font-semibold text-red-500'>{errors.location.message}</p>
               )}
             </div>
             <div className='grid grid-cols-2 gap-2'>
@@ -115,9 +107,7 @@ const AddProperty = () => {
                   })}
                 />
                 {errors.minPrice && (
-                  <p className='text-sm font-semibold text-red-500'>
-                    {errors.minPrice.message}
-                  </p>
+                  <p className='text-sm font-semibold text-red-500'>{errors.minPrice.message}</p>
                 )}
               </div>
               <div>
@@ -135,9 +125,7 @@ const AddProperty = () => {
                   })}
                 />
                 {errors.maxPrice && (
-                  <p className='text-sm font-semibold text-red-500'>
-                    {errors.maxPrice.message}
-                  </p>
+                  <p className='text-sm font-semibold text-red-500'>{errors.maxPrice.message}</p>
                 )}
               </div>
             </div>
@@ -155,9 +143,7 @@ const AddProperty = () => {
                 })}
               />
               {errors.description && (
-                <p className='text-sm font-semibold text-red-500'>
-                  {errors.description.message}
-                </p>
+                <p className='text-sm font-semibold text-red-500'>{errors.description.message}</p>
               )}
             </div>
             <div>
@@ -196,18 +182,12 @@ const AddProperty = () => {
                 />
               </label>
               {errors.image && (
-                <p className='text-sm font-semibold text-red-500'>
-                  {errors.image.message}
-                </p>
+                <p className='text-sm font-semibold text-red-500'>{errors.image.message}</p>
               )}
             </div>
           </div>
           <div className='grid grid-cols-2 gap-5'>
-            <Input
-              defaultValue={user?.displayName}
-              label={user?.displayName}
-              disabled
-            />
+            <Input defaultValue={user?.displayName} label={user?.displayName} disabled />
             <Input defaultValue={user?.email} label={user?.email} disabled />
           </div>
           <div>

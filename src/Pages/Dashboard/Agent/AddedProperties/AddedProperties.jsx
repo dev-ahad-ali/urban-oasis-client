@@ -2,13 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../../../Hooks/useAuth';
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
 import LoadingSpinner from '../../../../Components/LoadingSpinner/LoadingSpinner';
-import {
-  Avatar,
-  Chip,
-  IconButton,
-  Tooltip,
-  Typography,
-} from '@material-tailwind/react';
+import { Avatar, Chip, IconButton, Tooltip, Typography } from '@material-tailwind/react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { FaArrowRightArrowLeft } from 'react-icons/fa6';
 import { useState } from 'react';
@@ -35,15 +29,7 @@ const AddedProperties = () => {
     },
   });
 
-  const TABLE_HEAD = [
-    'Image',
-    'Name',
-    'Location',
-    'Price',
-    'Agent Info',
-    'Status',
-    '',
-  ];
+  const TABLE_HEAD = ['Image', 'Name', 'Location', 'Price', 'Agent Info', 'Status', ''];
 
   if (propertiesPending) {
     return <LoadingSpinner />;
@@ -57,10 +43,7 @@ const AddedProperties = () => {
           <thead>
             <tr>
               {TABLE_HEAD.map((head) => (
-                <th
-                  key={head}
-                  className='border-y border-blue-gray-100 bg-blue-gray-50/50 p-4'
-                >
+                <th key={head} className='border-y border-blue-gray-100 bg-blue-gray-50/50 p-4'>
                   <Typography
                     variant='small'
                     color='blue-gray'
@@ -75,17 +58,7 @@ const AddedProperties = () => {
           <tbody>
             {addedProperties.map(
               (
-                {
-                  _id,
-                  title,
-                  location,
-                  minPrice,
-                  maxPrice,
-                  image,
-                  status,
-                  agentName,
-                  agentImage,
-                },
+                { _id, title, location, minPrice, maxPrice, image, status, agentName, agentImage },
                 index,
               ) => {
                 const isLast = index === addedProperties.length - 1;
@@ -101,21 +74,13 @@ const AddedProperties = () => {
                     </td>
                     {/* Name */}
                     <td className={classes}>
-                      <Typography
-                        variant='small'
-                        color='blue-gray'
-                        className='font-bold'
-                      >
+                      <Typography variant='small' color='blue-gray' className='font-bold'>
                         {title}
                       </Typography>
                     </td>
                     {/* Location */}
                     <td className={classes}>
-                      <Typography
-                        variant='small'
-                        color='blue-gray'
-                        className='font-normal'
-                      >
+                      <Typography variant='small' color='blue-gray' className='font-normal'>
                         {location}
                       </Typography>
                     </td>
@@ -130,12 +95,7 @@ const AddedProperties = () => {
                     {/* Agent Info */}
                     <td className={classes}>
                       <dir className='flex items-center gap-4 px-0'>
-                        <Avatar
-                          src={agentImage}
-                          alt='avatar'
-                          size='sm'
-                          variant='rounded'
-                        />
+                        <Avatar src={agentImage} alt='avatar' size='sm' variant='rounded' />
                         <p className='font-regular'>{agentName}</p>
                       </dir>
                     </td>
@@ -147,11 +107,7 @@ const AddedProperties = () => {
                           size='lg'
                           value={status}
                           color={
-                            status === 'pending'
-                              ? 'yellow'
-                              : status === 'verified'
-                                ? 'blue'
-                                : 'red'
+                            status === 'pending' ? 'yellow' : status === 'verified' ? 'blue' : 'red'
                           }
                         />
                       </div>

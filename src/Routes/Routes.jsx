@@ -14,6 +14,7 @@ import AddedProperties from '../Pages/Dashboard/Agent/AddedProperties/AddedPrope
 import Offers from '../Pages/Dashboard/Agent/Offers/Offers';
 import SoldProperties from '../Pages/Dashboard/Agent/SoldProperties/SoldProperties';
 import ManageProperties from '../Pages/Dashboard/Admin/ManageProperties/ManageProperties';
+import AllProperties from '../Pages/AllProperties/AllProperties';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: '/signUp',
         element: <SignUp />,
+      },
+      {
+        path: '/allProperties',
+        element: <AllProperties />,
       },
     ],
   },
