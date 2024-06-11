@@ -1,10 +1,22 @@
 import { Button } from '@material-tailwind/react';
 import usePropertyData from '../../Hooks/usePropertyData';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
-const WishPropertyCard = ({ wishProperty }) => {
+const WishPropertyCard = ({ wishProperty, wishRefetch }) => {
   const { property, propertyPending } = usePropertyData(wishProperty.propertyId);
   const { title, image, agentName, agentImage } = property;
+  const axiosSecure = useAxiosSecure();
+
+  const handleRemoveWish = async (id) => {
+    const removeRes = await axiosSecure.delete(`/wishList/${id}`);
+    if (removeRes.data.deletedCount > 0) {
+      toast.success('Property Removed');
+      wishRefetch();
+    }
+  };
 
   if (propertyPending) {
     return <LoadingSpinner />;
@@ -48,8 +60,10 @@ const WishPropertyCard = ({ wishProperty }) => {
               </a>
             </div>
             <div className='flex items-center gap-2'>
-              <Button>Make An Offer</Button>
-              <Button>Remove</Button>
+              <Link to={'/dashboard/makeOffer'}>
+                <Button>Make An Offer</Button>
+              </Link>
+              <Button onClick={() => handleRemoveWish(wishProperty._id)}>Remove</Button>
             </div>
           </div>
         </div>

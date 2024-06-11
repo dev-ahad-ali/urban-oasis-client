@@ -8,14 +8,12 @@ const UserLinks = () => {
       <NavLink
         to={'/dashboard/userProfile'}
         className='flex transform items-center rounded-lg px-3 py-2 text-gray-600 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-gray-200'
-        href='#'
       >
         <span className='mx-2 text-sm font-medium'>User Profile</span>
       </NavLink>
       <NavLink
         to={'/dashboard/userWishList'}
         className='flex transform items-center rounded-lg px-3 py-2 text-gray-600 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-gray-200'
-        href='#'
       >
         <span className='mx-2 text-sm font-medium'>Wish List</span>
       </NavLink>
@@ -23,14 +21,12 @@ const UserLinks = () => {
       <NavLink
         to={'/dashboard/userPropertyBought'}
         className='flex transform items-center rounded-lg px-3 py-2 text-gray-600 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-gray-200'
-        href='#'
       >
         <span className='mx-2 text-sm font-medium'>Property Bought</span>
       </NavLink>
       <NavLink
         to={'/dashboard/userReviews'}
         className='flex transform items-center rounded-lg px-3 py-2 text-gray-600 transition-colors duration-300 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-gray-200'
-        href='#'
       >
         <span className='mx-2 text-sm font-medium'>My Reviews</span>
       </NavLink>

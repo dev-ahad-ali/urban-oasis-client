@@ -20,6 +20,7 @@ import UserProfile from '../Pages/Dashboard/User/UserProfile/UserProfile';
 import WishList from '../Pages/Dashboard/User/WishList/WishList';
 import PropertyBought from '../Pages/Dashboard/User/PropertyBought/PropertyBought';
 import MyReviews from '../Pages/Dashboard/User/MyReviews/MyReviews';
+import MakeOffer from '../Pages/MakeOffer/MakeOffer';
 
 const router = createBrowserRouter([
   {
@@ -115,6 +116,10 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/userReviews',
         element: <MyReviews />,
+      },
+      {
+        path: '/dashboard/makeOffer',
+        element: <MakeOffer />,
       },
     ],
   },

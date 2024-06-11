@@ -8,7 +8,11 @@ const WishList = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  const { data: wishProperties, isPending: wishListPending } = useQuery({
+  const {
+    data: wishProperties,
+    isPending: wishListPending,
+    refetch: wishRefetch,
+  } = useQuery({
     queryKey: [user?.email, 'wishProperties'],
     queryFn: async () => {
       const wishRes = await axiosSecure.get(`/wishList/${user?.email}`);
@@ -25,7 +29,11 @@ const WishList = () => {
       <h2 className='text-3xl'>Wish List</h2>
       <div>
         {wishProperties.map((wishProperty) => (
-          <WishPropertyCard key={wishProperty._id} wishProperty={wishProperty} />
+          <WishPropertyCard
+            key={wishProperty._id}
+            wishProperty={wishProperty}
+            wishRefetch={wishRefetch}
+          />
         ))}
       </div>
     </div>
