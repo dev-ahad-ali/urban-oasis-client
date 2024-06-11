@@ -1,10 +1,4 @@
-import {
-  Avatar,
-  Chip,
-  IconButton,
-  Tooltip,
-  Typography,
-} from '@material-tailwind/react';
+import { Avatar, Chip, IconButton, Tooltip, Typography } from '@material-tailwind/react';
 import { FaArrowRightArrowLeft } from 'react-icons/fa6';
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
@@ -55,10 +49,7 @@ const ManageProperties = () => {
           <thead>
             <tr>
               {TABLE_HEAD.map((head) => (
-                <th
-                  key={head}
-                  className='border-y border-blue-gray-100 bg-blue-gray-50/50 p-4'
-                >
+                <th key={head} className='border-y border-blue-gray-100 bg-blue-gray-50/50 p-4'>
                   <Typography
                     variant='small'
                     color='blue-gray'
@@ -100,21 +91,13 @@ const ManageProperties = () => {
                     </td>
                     {/* Name */}
                     <td className={classes}>
-                      <Typography
-                        variant='small'
-                        color='blue-gray'
-                        className='font-bold'
-                      >
+                      <Typography variant='small' color='blue-gray' className='font-bold'>
                         {title}
                       </Typography>
                     </td>
                     {/* Location */}
                     <td className={classes}>
-                      <Typography
-                        variant='small'
-                        color='blue-gray'
-                        className='font-normal'
-                      >
+                      <Typography variant='small' color='blue-gray' className='font-normal'>
                         {location}
                       </Typography>
                     </td>
@@ -129,12 +112,7 @@ const ManageProperties = () => {
                     {/* Agent Info */}
                     <td className={classes}>
                       <dir className='flex items-center gap-4 px-0'>
-                        <Avatar
-                          src={agentImage}
-                          alt='avatar'
-                          size='sm'
-                          variant='rounded'
-                        />
+                        <Avatar src={agentImage} alt='avatar' size='sm' variant='rounded' />
                         <div className='flex flex-col'>
                           <p className='font-regular'>{agentName}</p>
                           <p className='font-regular text-sm'>{agentEmail}</p>
@@ -149,11 +127,7 @@ const ManageProperties = () => {
                           size='lg'
                           value={status}
                           color={
-                            status === 'pending'
-                              ? 'yellow'
-                              : status === 'verified'
-                                ? 'blue'
-                                : 'red'
+                            status === 'pending' ? 'yellow' : status === 'verified' ? 'blue' : 'red'
                           }
                         />
                       </div>
@@ -161,34 +135,36 @@ const ManageProperties = () => {
 
                     {/* Verify or Reject */}
                     <td className={classes}>
-                      <div className='flex items-center gap-3'>
-                        <Tooltip content='Verify'>
-                          <IconButton
-                            variant='text'
-                            onClick={() => {
-                              setPropertyId(_id);
-                              setVerifyStatus('verified');
-                              setPropertyName(title);
-                              setVerifyOpen(true);
-                            }}
-                          >
-                            <GiCheckMark className='text-xl text-green-400' />
-                          </IconButton>
-                        </Tooltip>
-                        <Tooltip content='Reject'>
-                          <IconButton
-                            variant='text'
-                            onClick={() => {
-                              setPropertyId(_id);
-                              setVerifyStatus('rejected');
-                              setPropertyName(title);
-                              setVerifyOpen(true);
-                            }}
-                          >
-                            <ImCross className='h-4 w-4 text-red-400' />
-                          </IconButton>
-                        </Tooltip>
-                      </div>
+                      {status === 'pending' && (
+                        <div className='flex items-center gap-3'>
+                          <Tooltip content='Verify'>
+                            <IconButton
+                              variant='text'
+                              onClick={() => {
+                                setPropertyId(_id);
+                                setVerifyStatus('verified');
+                                setPropertyName(title);
+                                setVerifyOpen(true);
+                              }}
+                            >
+                              <GiCheckMark className='text-xl text-green-400' />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip content='Reject'>
+                            <IconButton
+                              variant='text'
+                              onClick={() => {
+                                setPropertyId(_id);
+                                setVerifyStatus('rejected');
+                                setPropertyName(title);
+                                setVerifyOpen(true);
+                              }}
+                            >
+                              <ImCross className='h-4 w-4 text-red-400' />
+                            </IconButton>
+                          </Tooltip>
+                        </div>
+                      )}
                     </td>
                   </tr>
                 );

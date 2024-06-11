@@ -15,6 +15,7 @@ import Offers from '../Pages/Dashboard/Agent/Offers/Offers';
 import SoldProperties from '../Pages/Dashboard/Agent/SoldProperties/SoldProperties';
 import ManageProperties from '../Pages/Dashboard/Admin/ManageProperties/ManageProperties';
 import AllProperties from '../Pages/AllProperties/AllProperties';
+import PropertyDetails from '../Pages/PropertyDetails/PropertyDetails';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: '/allProperties',
         element: <AllProperties />,
+      },
+      {
+        path: '/propertyDetails/:id',
+        element: <PropertyDetails />,
       },
     ],
   },

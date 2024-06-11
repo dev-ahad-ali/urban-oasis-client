@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner';
+import AllPropertyCard from '../../Components/Cards/AllPropertyCard';
 
 const AllProperties = () => {
   const axiosSecure = useAxiosSecure();
@@ -21,8 +22,8 @@ const AllProperties = () => {
     <div>
       <h2 className='text-3xl'>ALL properties</h2>
       <div>
-        {allProperties.map(({ title, _id }) => (
-          <p key={_id}>{title}</p>
+        {allProperties.map((property) => (
+          <AllPropertyCard key={property._id} property={property} />
         ))}
       </div>
     </div>
