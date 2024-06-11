@@ -15,6 +15,9 @@ const PropertyUpdateModal = ({ updateOpen, setUpdateOpen, id, refetch }) => {
       }
     },
   });
+
+  console.log(property);
+
   const {
     register,
     handleSubmit,
@@ -35,11 +38,7 @@ const PropertyUpdateModal = ({ updateOpen, setUpdateOpen, id, refetch }) => {
         <>
           <form>
             <input type='text' defaultValue={property.location} />
-            <input
-              type='text'
-              {...register('title')}
-              defaultValue={property.title}
-            />
+            <input type='text' {...register('title')} defaultValue={property.title} />
             <input type='submit' value={'submit'} />
           </form>
           <button
