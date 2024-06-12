@@ -1,7 +1,7 @@
 import { Button, Card, CardBody, CardHeader, Typography } from '@material-tailwind/react';
 import usePropertyData from '../../Hooks/usePropertyData';
 
-const PropertyBoughtCard = ({ offer }) => {
+const PropertyBoughtCard = ({ offer, refetch }) => {
   const { propertyId, offerAmount, offerDate, status } = offer;
   const { property } = usePropertyData(propertyId);
   const { title, location, image, agentName } = property;

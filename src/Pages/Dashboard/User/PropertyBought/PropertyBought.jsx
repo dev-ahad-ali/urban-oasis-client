@@ -31,7 +31,7 @@ const PropertyBought = () => {
 
       <div className='grid grid-cols-2 gap-4'>
         {offers.map((offer) => (
-          <PropertyBoughtCard key={offer._id} offer={offer} />
+          <PropertyBoughtCard key={offer._id} offer={offer} refetch={refetch} />
         ))}
       </div>
     </div>
