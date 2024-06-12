@@ -17,6 +17,11 @@ const OfferRow = ({ offer, classes, refetch }) => {
     if (rejectRes.data.modifiedCount > 0) {
       toast.success('Offer accepted');
       refetch();
+      axiosSecure.patch('/offersAutoReject', { propertyId }).then((res) => {
+        if (res.data.modifiedCount > 0) {
+          refetch();
+        }
+      });
     }
   };
 
