@@ -2,13 +2,16 @@ import { Button } from '@material-tailwind/react';
 import { useLocation } from 'react-router-dom';
 import usePropertyData from '../../Hooks/usePropertyData';
 import { useForm } from 'react-hook-form';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import { toast } from 'react-toastify';
 
 const MakeOffer = () => {
   const { state } = useLocation();
-  const { _id, propertyId, userName, userEmail } = state;
+  const { propertyId, userName, userEmail } = state;
   const { property } = usePropertyData(propertyId);
-  const { title, location, minPrice, maxPrice, agentName } = property;
+  const { title, location, minPrice, maxPrice, agentName, agentEmail } = property;
   const date = new Date().toDateString();
+  const axiosSecure = useAxiosSecure();
   const {
     register,
     handleSubmit,
@@ -16,9 +19,22 @@ const MakeOffer = () => {
     formState: { errors },
   } = useForm();
 
-  const handleOffer = (data) => {
-    console.log(data);
-    reset();
+  const handleOffer = async (data) => {
+    const offer = {
+      propertyId: propertyId,
+      offerAmount: data.offerAmount,
+      offerDate: date,
+      status: 'pending',
+      buyerName: userName,
+      buyerEmail: userEmail,
+      agentEmail: agentEmail,
+    };
+
+    const offerRes = await axiosSecure.post('/offers', offer);
+    if (offerRes.data.insertedId) {
+      toast.success('Offer send successfully');
+      reset();
+    }
   };
 
   return (
