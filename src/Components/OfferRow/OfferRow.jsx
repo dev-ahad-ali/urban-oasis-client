@@ -11,6 +11,15 @@ const OfferRow = ({ offer, classes, refetch }) => {
   const { title, location, image } = property;
   const axiosSecure = useAxiosSecure();
 
+  const handleAccept = async (id) => {
+    const status = 'accepted';
+    const rejectRes = await axiosSecure.patch(`/offers/${id}`, { status });
+    if (rejectRes.data.modifiedCount > 0) {
+      toast.success('Offer accepted');
+      refetch();
+    }
+  };
+
   const handleReject = async (id) => {
     const status = 'rejected';
     const rejectRes = await axiosSecure.patch(`/offers/${id}`, { status });
@@ -74,7 +83,7 @@ const OfferRow = ({ offer, classes, refetch }) => {
         <div className='flex items-center gap-3'>
           <Tooltip content='Accept Offer'>
             <IconButton variant='text'>
-              <GiCheckMark className='text-xl text-green-400' />
+              <GiCheckMark onClick={() => handleAccept(_id)} className='text-xl text-green-400' />
             </IconButton>
           </Tooltip>
           <Tooltip content='Reject'>
