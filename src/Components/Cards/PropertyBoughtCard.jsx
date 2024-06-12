@@ -13,19 +13,26 @@ const PropertyBoughtCard = ({ offer }) => {
       </CardHeader>
       <CardBody>
         <Typography variant='h6' color='gray' className='mb-4 uppercase'>
-          startups
+          {status}
         </Typography>
         <Typography variant='h4' color='blue-gray' className='mb-2'>
-          Lyft launching cross-platform service this week
+          {title}
         </Typography>
-        <Typography color='gray' className='mb-8 font-normal'>
-          Like so many organizations these days, Autodesk is a company in transition. It was until
-          recently a traditional boxed software company selling licenses. Yet its own business model
-          disruption is only part of the story
+        <Typography color='gray' className='font-normal'>
+          {location}
         </Typography>
-        <a href='#' className='inline-block'>
-          <Button variant='text' className='flex items-center gap-2'>
-            Learn More
+        <Typography color='gray' className='font-normal'>
+          {agentName}
+        </Typography>
+        <Typography color='gray' className='font-normal'>
+          ${offerAmount}
+        </Typography>
+        <Typography color='gray' className='font-normal'>
+          {offerDate}
+        </Typography>
+        {status === 'accepted' && (
+          <Button variant='text' color='green' className='flex items-center gap-2'>
+            Pay
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
@@ -41,7 +48,7 @@ const PropertyBoughtCard = ({ offer }) => {
               />
             </svg>
           </Button>
-        </a>
+        )}
       </CardBody>
     </Card>
   );
