@@ -2,13 +2,28 @@ import usePropertyData from '../../Hooks/usePropertyData';
 import { Chip, IconButton, Tooltip, Typography } from '@material-tailwind/react';
 import { GiCheckMark } from 'react-icons/gi';
 import { ImCross } from 'react-icons/im';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import { toast } from 'react-toastify';
 
 const OfferRow = ({ offer, classes, refetch }) => {
-  const { propertyId, offerAmount, offerDate, buyerName, buyerEmail, status } = offer;
+  const { _id, propertyId, offerAmount, offerDate, buyerName, buyerEmail, status } = offer;
   const { property } = usePropertyData(propertyId);
   const { title, location, image } = property;
+  const axiosSecure = useAxiosSecure();
+
+  const handleReject = async (id) => {
+    const status = 'rejected';
+    const rejectRes = await axiosSecure.patch(`/offers/${id}`, { status });
+    if (rejectRes.data.modifiedCount > 0) {
+      toast.success('Offer Rejected');
+      refetch();
+    }
+  };
+
   return (
-    <tr>
+    <tr
+      className={`${status === 'rejected' ? 'bg-red-100' : status === 'accepted' ? 'bg-green-100' : 'bg-transparent'}`}
+    >
       {/* Image */}
       <td className={classes}>
         <div className='flex items-center gap-3'>
@@ -36,7 +51,7 @@ const OfferRow = ({ offer, classes, refetch }) => {
       </td>
       {/* Date */}
       <td className={classes}>
-        <p className='text-sm'>{offerDate}</p>
+        <Typography>{offerDate}</Typography>
       </td>
       {/* Agent Info */}
       <td className={classes}>
@@ -63,7 +78,7 @@ const OfferRow = ({ offer, classes, refetch }) => {
             </IconButton>
           </Tooltip>
           <Tooltip content='Reject'>
-            <IconButton variant='text'>
+            <IconButton onClick={() => handleReject(_id)} variant='text'>
               <ImCross className='h-4 w-4 text-red-400' />
             </IconButton>
           </Tooltip>

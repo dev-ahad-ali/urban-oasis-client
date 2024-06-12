@@ -10,14 +10,16 @@ const Offers = () => {
   const axiosSecure = useAxiosSecure();
 
   const {
-    data: agentOffers,
+    data: agentOffers = [],
     isPending: agentOffersPending,
     refetch,
   } = useQuery({
-    queryKey: ['agentOffers'],
+    queryKey: [user?.email, 'agentOffers'],
     queryFn: async () => {
-      const offersRes = await axiosSecure.get(`/agentOffers/${user?.email}`);
-      return offersRes.data;
+      if (user) {
+        const offersRes = await axiosSecure.get(`/agentOffers/${user?.email}`);
+        return offersRes.data;
+      }
     },
   });
 
@@ -40,7 +42,6 @@ const Offers = () => {
     <div>
       <h2 className='text-3xl'>Offers</h2>
       <div>
-        {' '}
         <table className='mt-4 w-full min-w-max table-auto text-left'>
           <thead>
             <tr>
@@ -58,7 +59,7 @@ const Offers = () => {
             </tr>
           </thead>
           <tbody>
-            {agentOffers.map((offer, index) => {
+            {agentOffers?.map((offer, index) => {
               const isLast = index === agentOffers.length - 1;
               const classes = isLast ? 'p-4' : 'p-4 border-b border-gray-600';
               return <OfferRow key={offer._id} offer={offer} classes={classes} refetch={refetch} />;
