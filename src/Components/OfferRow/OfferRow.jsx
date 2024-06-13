@@ -83,20 +83,22 @@ const OfferRow = ({ offer, classes, refetch }) => {
         </div>
       </td>
 
-      {/* Delete or Update */}
+      {/* Accept or Reject */}
       <td className={classes}>
-        <div className='flex items-center gap-3'>
-          <Tooltip content='Accept Offer'>
-            <IconButton variant='text'>
-              <GiCheckMark onClick={() => handleAccept(_id)} className='text-xl text-green-400' />
-            </IconButton>
-          </Tooltip>
-          <Tooltip content='Reject'>
-            <IconButton onClick={() => handleReject(_id)} variant='text'>
-              <ImCross className='h-4 w-4 text-red-400' />
-            </IconButton>
-          </Tooltip>
-        </div>
+        {status === 'pending' && (
+          <div className='flex items-center gap-3'>
+            <Tooltip content='Accept Offer'>
+              <IconButton variant='text'>
+                <GiCheckMark onClick={() => handleAccept(_id)} className='text-xl text-green-400' />
+              </IconButton>
+            </Tooltip>
+            <Tooltip content='Reject'>
+              <IconButton onClick={() => handleReject(_id)} variant='text'>
+                <ImCross className='h-4 w-4 text-red-400' />
+              </IconButton>
+            </Tooltip>
+          </div>
+        )}
       </td>
     </tr>
   );

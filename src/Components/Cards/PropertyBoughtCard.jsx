@@ -4,7 +4,7 @@ import usePropertyData from '../../Hooks/usePropertyData';
 const PropertyBoughtCard = ({ offer, refetch }) => {
   const { propertyId, offerAmount, offerDate, status } = offer;
   const { property } = usePropertyData(propertyId);
-  const { title, location, image, agentName } = property;
+  const { title, location, image, agentName, propertyBought } = property;
 
   return (
     <Card className='w-full max-w-[48rem] flex-row'>
@@ -13,7 +13,7 @@ const PropertyBoughtCard = ({ offer, refetch }) => {
       </CardHeader>
       <CardBody>
         <Typography variant='h6' color='gray' className='mb-4 uppercase'>
-          {status}
+          {propertyBought === 'bought' ? 'Bought' : status}
         </Typography>
         <Typography variant='h4' color='blue-gray' className='mb-2'>
           {title}
