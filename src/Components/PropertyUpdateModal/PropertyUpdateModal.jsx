@@ -1,19 +1,52 @@
 import { Button, Dialog } from '@material-tailwind/react';
 import usePropertyData from '../../Hooks/usePropertyData';
-import { useState } from 'react';
+import useAxiosPublic from '../../Hooks/useAxiosPublic';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import { toast } from 'react-toastify';
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const PropertyUpdateModal = ({ updateOpen, setUpdateOpen, id, refetch }) => {
-  const { property } = usePropertyData(id);
-  const [imageLink, setImageLink] = useState('');
+  const { property, propertyRefetch } = usePropertyData(id);
+  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
 
-  const handleUpdate = (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
     const form = e.target;
     const title = form.title.value;
     const location = form.location.value;
     const minPrice = form.minPrice.value;
     const maxPrice = form.maxPrice.value;
-    console.log(title, location, minPrice, maxPrice);
+    const image = { image: form.imageFile.files[0] };
+    let imageLink = '';
+
+    if (image.image) {
+      const res = await axiosPublic.post(image_hosting_api, image, {
+        headers: { 'content-type': 'multipart/form-data' },
+      });
+      if (res.data.success) {
+        const link = res.data.data.display_url;
+        imageLink = link;
+      }
+    }
+
+    const update = {
+      title: title,
+      location: location,
+      minPrice: minPrice,
+      maxPrice: maxPrice,
+      image: imageLink ? imageLink : property.image,
+    };
+
+    const updateRes = await axiosSecure.patch(`/property/${id}`, update);
+    if (updateRes.data.modifiedCount > 0) {
+      toast.success('Update successful');
+      refetch();
+      propertyRefetch();
+      setUpdateOpen(false);
+    }
   };
 
   return (
@@ -92,6 +125,7 @@ const PropertyUpdateModal = ({ updateOpen, setUpdateOpen, id, refetch }) => {
             <input
               id='dropzone-file'
               type='file'
+              name='imageFile'
               className='block w-full cursor-pointer rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-600 placeholder-gray-400/70 file:rounded-full file:border-none file:bg-gray-200 file:px-4 file:py-1 file:text-sm file:text-gray-700'
             />
           </label>

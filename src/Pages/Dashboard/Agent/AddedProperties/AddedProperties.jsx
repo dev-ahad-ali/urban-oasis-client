@@ -127,7 +127,7 @@ const AddedProperties = () => {
                             <FaEdit className='text-xl text-green-400' />
                           </IconButton>
                         </Tooltip>
-                        <Tooltip content='Delete User'>
+                        <Tooltip content='Delete Property'>
                           <IconButton
                             onClick={() => {
                               setDeleteOpen(true);
