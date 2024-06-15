@@ -51,8 +51,12 @@ const PropertyUpdateModal = ({ updateOpen, setUpdateOpen, id, refetch }) => {
 
   return (
     <Dialog open={updateOpen} size='lg' className='p-4'>
-      <div className='relative'>
-        <h2 className='mb-4 text-2xl'>Update: {property.title}</h2>
+      <div className='relative flex items-center justify-between gap-2'>
+        <h2 className='mb-4 text-2xl font-medium'>Update: {property.title}</h2>
+        <div className='mx-2'>
+          <h1 className='font-semibold text-gray-800'>Agent Name : {property.agentName}</h1>
+          <span className='text-sm font-medium'>Agent Email : {property.agentEmail}</span>
+        </div>
       </div>
       <form onSubmit={handleUpdate} className='flex flex-col gap-4'>
         <div className='grid grid-cols-2 gap-4'>
