@@ -7,11 +7,7 @@ import LoadingSpinner from '../../../../Components/LoadingSpinner/LoadingSpinner
 const PropertyBought = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const {
-    data: offers = [],
-    isPending: offersPending,
-    refetch,
-  } = useQuery({
+  const { data: offers = [], isPending: offersPending } = useQuery({
     queryKey: [user?.email, 'offers'],
     queryFn: async () => {
       if (user) {
@@ -31,7 +27,7 @@ const PropertyBought = () => {
 
       <div className='grid grid-cols-2 gap-4'>
         {offers.map((offer) => (
-          <PropertyBoughtCard key={offer._id} offer={offer} refetch={refetch} />
+          <PropertyBoughtCard key={offer._id} offer={offer} />
         ))}
       </div>
     </div>

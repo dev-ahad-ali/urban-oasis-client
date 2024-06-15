@@ -1,7 +1,8 @@
 import { Button, Card, CardBody, CardHeader, Typography } from '@material-tailwind/react';
 import usePropertyData from '../../Hooks/usePropertyData';
+import { Link } from 'react-router-dom';
 
-const PropertyBoughtCard = ({ offer, refetch }) => {
+const PropertyBoughtCard = ({ offer }) => {
   const { propertyId, offerAmount, offerDate, status } = offer;
   const { property } = usePropertyData(propertyId);
   const { title, location, image, agentName, propertyBought } = property;
@@ -31,23 +32,25 @@ const PropertyBoughtCard = ({ offer, refetch }) => {
           {offerDate}
         </Typography>
         {status === 'accepted' && (
-          <Button variant='text' color='green' className='flex items-center gap-2'>
-            Pay
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              viewBox='0 0 24 24'
-              stroke='currentColor'
-              strokeWidth={2}
-              className='h-4 w-4'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                d='M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3'
-              />
-            </svg>
-          </Button>
+          <Link to={'/dashboard/payment'} state={propertyId}>
+            <Button variant='text' color='green' className='flex items-center gap-2'>
+              Pay
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                stroke='currentColor'
+                strokeWidth={2}
+                className='h-4 w-4'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  d='M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3'
+                />
+              </svg>
+            </Button>
+          </Link>
         )}
       </CardBody>
     </Card>

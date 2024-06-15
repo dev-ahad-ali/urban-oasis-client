@@ -21,6 +21,7 @@ import WishList from '../Pages/Dashboard/User/WishList/WishList';
 import PropertyBought from '../Pages/Dashboard/User/PropertyBought/PropertyBought';
 import MyReviews from '../Pages/Dashboard/User/MyReviews/MyReviews';
 import MakeOffer from '../Pages/MakeOffer/MakeOffer';
+import Payment from '../Pages/Dashboard/User/Payment/Payment';
 
 const router = createBrowserRouter([
   {
@@ -120,6 +121,10 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/makeOffer',
         element: <MakeOffer />,
+      },
+      {
+        path: '/dashboard/payment',
+        element: <Payment />,
       },
     ],
   },
