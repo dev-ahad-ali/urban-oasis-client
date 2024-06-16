@@ -14,7 +14,7 @@ const PropertyBoughtCard = ({ offer }) => {
       </CardHeader>
       <CardBody>
         <Typography variant='h6' color='gray' className='mb-4 uppercase'>
-          {propertyBought === 'bought' ? 'Bought' : status}
+          {status === 'accepted' && propertyBought === 'bought' ? 'Bought' : status}
         </Typography>
         <Typography variant='h4' color='blue-gray' className='mb-2'>
           {title}
