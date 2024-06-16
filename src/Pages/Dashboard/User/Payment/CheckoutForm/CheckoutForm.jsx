@@ -1,10 +1,20 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import useAxiosSecure from '../../../../../Hooks/useAxiosSecure';
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ offerAmount }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState();
+  const axiosSecure = useAxiosSecure();
+  const [clientSecret, setClientSecret] = useState('');
+
+  useEffect(() => {
+    axiosSecure.post('/create-payment-intent', { price: offerAmount }).then((res) => {
+      // console.log(res.data.clientSecret);
+      setClientSecret(res.data.clientSecret);
+    });
+  }, [axiosSecure, offerAmount]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -53,7 +63,7 @@ const CheckoutForm = () => {
         />
         <button
           type='submit'
-          disabled={!stripe}
+          disabled={!stripe || !clientSecret}
           className='bg-green-500 px-6 py-1 font-title text-xl uppercase text-white shadow-xl'
         >
           Pay

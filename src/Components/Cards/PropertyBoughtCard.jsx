@@ -32,7 +32,7 @@ const PropertyBoughtCard = ({ offer }) => {
           {offerDate}
         </Typography>
         {status === 'accepted' && (
-          <Link to={'/dashboard/payment'} state={propertyId}>
+          <Link to={'/dashboard/payment'} state={{ propertyId, offerAmount }}>
             <Button variant='text' color='green' className='flex items-center gap-2'>
               Pay
               <svg

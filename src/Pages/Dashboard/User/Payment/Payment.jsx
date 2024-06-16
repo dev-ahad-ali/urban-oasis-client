@@ -8,13 +8,13 @@ const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_PK);
 
 const Payment = () => {
   const { state } = useLocation();
-  const { property } = usePropertyData(state);
+  const { property } = usePropertyData(state.propertyId);
   return (
     <div>
       <h2 className='text-2xl'>Payment For : {property.title}</h2>
       <div>
         <Elements stripe={stripePromise}>
-          <CheckoutForm />
+          <CheckoutForm offerAmount={state.offerAmount} />
         </Elements>
       </div>
     </div>
