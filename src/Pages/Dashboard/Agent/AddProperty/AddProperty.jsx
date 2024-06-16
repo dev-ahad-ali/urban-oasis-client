@@ -39,6 +39,8 @@ const AddProperty = () => {
         agentImage: user?.photoURL,
         image: imageRes.data.data.display_url,
         status: 'pending',
+        propertyBought: 'pending',
+        paymentId: 'pending',
       };
 
       const propertyRes = await axiosSecure.post('/properties', property);

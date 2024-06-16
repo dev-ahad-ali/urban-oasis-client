@@ -14,7 +14,7 @@ const Payment = () => {
       <h2 className='text-2xl'>Payment For : {property.title}</h2>
       <div>
         <Elements stripe={stripePromise}>
-          <CheckoutForm offerAmount={state.offerAmount} />
+          <CheckoutForm offerAmount={state.offerAmount} propertyId={state.propertyId} />
         </Elements>
       </div>
     </div>

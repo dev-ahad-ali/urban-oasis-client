@@ -2,8 +2,10 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useEffect, useState } from 'react';
 import useAxiosSecure from '../../../../../Hooks/useAxiosSecure';
 import useAuth from '../../../../../Hooks/useAuth';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
-const CheckoutForm = ({ offerAmount }) => {
+const CheckoutForm = ({ offerAmount, propertyId }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState();
@@ -11,6 +13,7 @@ const CheckoutForm = ({ offerAmount }) => {
   const [clientSecret, setClientSecret] = useState('');
   const { user } = useAuth();
   const [transactionId, setTransactionId] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     axiosSecure.post('/create-payment-intent', { price: offerAmount }).then((res) => {
@@ -61,6 +64,19 @@ const CheckoutForm = ({ offerAmount }) => {
       if (paymentIntent.status === 'succeeded') {
         console.log('transaction id', paymentIntent.id);
         setTransactionId(paymentIntent.id);
+
+        const paymentInfo = {
+          buyersName: user?.displayName,
+          buyerEmail: user?.email,
+          paymentId: paymentIntent.id,
+        };
+
+        axiosSecure.patch(`/propertyBought/${propertyId}`, paymentInfo).then((res) => {
+          if (res.data.modifiedCount > 0) {
+            toast.success('Payment successful');
+            navigate('/dashboard/userPropertyBought');
+          }
+        });
       }
     }
   };
@@ -68,7 +84,10 @@ const CheckoutForm = ({ offerAmount }) => {
   return (
     <div>
       <h2 className='text-2xl'>Payment Amount : {offerAmount}</h2>
-      <form onSubmit={handleSubmit}>
+      <form
+        onSubmit={handleSubmit}
+        className='mx-auto max-w-2xl rounded-md border border-black p-4 px-3'
+      >
         <CardElement
           options={{
             style: {
@@ -85,6 +104,7 @@ const CheckoutForm = ({ offerAmount }) => {
             },
           }}
         />
+        <div className='my-4 h-[1px] bg-black'></div>
         <button
           type='submit'
           disabled={!stripe || !clientSecret}
