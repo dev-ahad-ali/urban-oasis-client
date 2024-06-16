@@ -1,6 +1,7 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useEffect, useState } from 'react';
 import useAxiosSecure from '../../../../../Hooks/useAxiosSecure';
+import useAuth from '../../../../../Hooks/useAuth';
 
 const CheckoutForm = ({ offerAmount }) => {
   const stripe = useStripe();
@@ -8,6 +9,8 @@ const CheckoutForm = ({ offerAmount }) => {
   const [error, setError] = useState();
   const axiosSecure = useAxiosSecure();
   const [clientSecret, setClientSecret] = useState('');
+  const { user } = useAuth();
+  const [transactionId, setTransactionId] = useState('');
 
   useEffect(() => {
     axiosSecure.post('/create-payment-intent', { price: offerAmount }).then((res) => {
@@ -33,17 +36,38 @@ const CheckoutForm = ({ offerAmount }) => {
       card,
     });
     if (error) {
-      console.log('payment error', error);
+      // console.log('payment error', error);
       setError(error.message);
     } else {
       console.log('payment method', paymentMethod);
       setError('');
     }
+
+    // confirm payment
+    const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: card,
+        billing_details: {
+          email: user?.email || 'anonymous',
+          name: user?.displayName || 'anonymous',
+        },
+      },
+    });
+
+    if (confirmError) {
+      console.log(confirmError);
+    } else {
+      console.log(paymentIntent);
+      if (paymentIntent.status === 'succeeded') {
+        console.log('transaction id', paymentIntent.id);
+        setTransactionId(paymentIntent.id);
+      }
+    }
   };
 
   return (
     <div>
-      <h2 className='text-2xl'>checkout</h2>
+      <h2 className='text-2xl'>Payment Amount : {offerAmount}</h2>
       <form onSubmit={handleSubmit}>
         <CardElement
           options={{
@@ -69,6 +93,9 @@ const CheckoutForm = ({ offerAmount }) => {
           Pay
         </button>
         {error && <p className='text-sm text-red-500'>{error?.message}</p>}
+        {transactionId && (
+          <p className='text-sm text-green-500'>Your Transaction Id : {transactionId}</p>
+        )}
       </form>
     </div>
   );
