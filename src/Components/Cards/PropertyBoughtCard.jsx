@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const PropertyBoughtCard = ({ offer }) => {
   const { propertyId, offerAmount, offerDate, status } = offer;
   const { property } = usePropertyData(propertyId);
-  const { title, location, image, agentName, propertyBought } = property;
+  const { title, location, paymentInfo, image, agentName, propertyBought } = property;
 
   return (
     <Card className='w-full max-w-[48rem] flex-row'>
@@ -31,7 +31,9 @@ const PropertyBoughtCard = ({ offer }) => {
         <Typography color='gray' className='font-normal'>
           {offerDate}
         </Typography>
-        {status === 'accepted' && (
+        {status === 'accepted' && paymentInfo ? (
+          <p>{paymentInfo.paymentId}</p>
+        ) : status === 'accepted' ? (
           <Link to={'/dashboard/payment'} state={{ propertyId, offerAmount }}>
             <Button variant='text' color='green' className='flex items-center gap-2'>
               Pay
@@ -51,6 +53,8 @@ const PropertyBoughtCard = ({ offer }) => {
               </svg>
             </Button>
           </Link>
+        ) : (
+          <></>
         )}
       </CardBody>
     </Card>
