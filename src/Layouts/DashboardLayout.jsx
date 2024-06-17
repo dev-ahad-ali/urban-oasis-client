@@ -9,6 +9,7 @@ import AgentLinks from '../Components/AgentLinks/AgentLinks';
 
 const DashboardLayout = () => {
   const { userRole } = useRole();
+
   return (
     <>
       <section className='flex'>
@@ -24,8 +25,10 @@ const DashboardLayout = () => {
                   <AdminLinks />
                 ) : userRole === 'agent' ? (
                   <AgentLinks />
-                ) : (
+                ) : userRole === 'user' ? (
                   <UserLinks />
+                ) : (
+                  <p className='text-offWhite'>Navigating....</p>
                 )}
                 {/* Public Content */}
                 <div className='space-y-3'>

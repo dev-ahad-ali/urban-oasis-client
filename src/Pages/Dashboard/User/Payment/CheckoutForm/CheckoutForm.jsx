@@ -66,9 +66,10 @@ const CheckoutForm = ({ offerAmount, propertyId }) => {
         setTransactionId(paymentIntent.id);
 
         const paymentInfo = {
-          buyersName: user?.displayName,
+          buyerName: user?.displayName,
           buyerEmail: user?.email,
           paymentId: paymentIntent.id,
+          price: offerAmount,
         };
 
         axiosSecure.patch(`/propertyBought/${propertyId}`, paymentInfo).then((res) => {
