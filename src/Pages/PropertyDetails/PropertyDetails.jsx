@@ -5,6 +5,9 @@ import usePropertyData from '../../Hooks/usePropertyData';
 import useAuth from '../../Hooks/useAuth';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 import { toast } from 'react-toastify';
+import { PiArrowsLeftRight } from 'react-icons/pi';
+import { FaHeart } from 'react-icons/fa';
+import { MdRateReview } from 'react-icons/md';
 
 const PropertyDetails = () => {
   const { id } = useParams();
@@ -12,7 +15,18 @@ const PropertyDetails = () => {
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
 
-  const { title, image } = property;
+  const {
+    title,
+    image,
+    location,
+    description,
+    minPrice,
+    maxPrice,
+    agentName,
+    agentEmail,
+    agentImage,
+    status,
+  } = property;
 
   const handleWishList = async (id) => {
     const wishDetails = {
@@ -32,23 +46,76 @@ const PropertyDetails = () => {
   }
 
   return (
-    <div>
-      <figure>
-        <img className='h-96 w-full rounded-lg object-cover object-center' src={image} />
-        <Typography as='p' variant='small' className='mt-2 text-center font-normal'>
-          {title}
-        </Typography>
-        <div>
-          <Button
-            onClick={() => {
-              handleWishList(id);
-            }}
-          >
-            Add To wishlist
-          </Button>
+    <section className='px-7'>
+      <div className='h-52'></div>
+      {/* title */}
+      <div>
+        <h2 className='font-title text-8xl'>{title}`</h2>
+        <div className='flex items-center justify-between gap-3 border-b-2 border-customBlack py-4'>
+          <p>{description.slice(0, 50)}.......</p>
+          <p className='text-lg font-semibold text-gray-500'>{location}</p>
         </div>
-      </figure>
-    </div>
+      </div>
+      {/* image */}
+      <img className='mt-5 h-[700px] w-full' src={image} />
+      {/* details */}
+      <div className='my-12 flex items-center justify-around gap-3 rounded-full bg-white p-4 shadow-xl'>
+        <div>
+          <p className='font-title text-2xl font-semibold'>Location : </p>
+          <p className='text-xl italic'>{location}</p>
+        </div>
+        <div>
+          <p className='font-title text-2xl font-semibold'>Price Range : </p>
+          <p className='flex items-center gap-2 text-xl italic'>
+            ${minPrice}
+            <PiArrowsLeftRight />${maxPrice}
+          </p>
+        </div>
+        <div>
+          <p className='font-title text-2xl font-semibold'>Status : </p>
+          <p className='text-xl italic'>{status}</p>
+        </div>
+      </div>
+      <div className='grid grid-cols-2 items-center gap-5'>
+        <div>
+          <h3 className='mb-4 font-title text-2xl font-semibold'>Property Description : </h3>
+          <p className='text-xl text-gray-600'>{description}</p>
+        </div>
+        {/* agent details */}
+        <div>
+          <div className='grid place-items-center'>
+            <h3 className='mb-4 font-title text-2xl font-semibold'>Property Listed By : </h3>
+            <div className='item-center flex gap-2 rounded-xl border border-customBlack p-4'>
+              <img src={agentImage} alt='' className='w-12 rounded-md' />
+              <div>
+                <p className='text-lg'>{agentName}</p>
+                <p className='font-semibold'>{agentEmail}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Add review or add to wishlist */}
+      <div className='my-16 grid grid-cols-2 items-center gap-5'>
+        <Button
+          color='blue'
+          className='flex items-center justify-center gap-4 font-title text-lg capitalize'
+        >
+          Write a review
+          <MdRateReview className='mt-[2px] text-xl' />
+        </Button>
+        <Button
+          color='pink'
+          className='flex items-center justify-center gap-4 font-title text-lg capitalize'
+          onClick={() => {
+            handleWishList(id);
+          }}
+        >
+          Add To wishlist
+          <FaHeart />
+        </Button>
+      </div>
+    </section>
   );
 };
 
