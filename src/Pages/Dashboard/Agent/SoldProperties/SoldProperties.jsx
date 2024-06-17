@@ -12,14 +12,23 @@ const SoldProperties = () => {
   const { data: soldPropertiesDetails = {}, isPending } = useQuery({
     queryKey: [user ? user.email : '', 'soldProperties'],
     queryFn: async () => {
-      if (user) {
+      if (user.email) {
         const res = await axiosSecure.get(`/soldProperties/${user?.email}`);
         return res.data;
       }
     },
   });
 
-  const TABLE_HEAD = ['Image', 'Name', 'Location', 'Buyer Name', 'Buyer Email', 'Status', 'Price'];
+  const TABLE_HEAD = [
+    '#',
+    'Image',
+    'Name',
+    'Location',
+    'Buyer Name',
+    'Buyer Email',
+    'Status',
+    'Price',
+  ];
 
   if (isPending) {
     return <LoadingSpinner />;
@@ -54,10 +63,12 @@ const SoldProperties = () => {
 
                 return (
                   <tr key={_id}>
+                    <td className={classes}>
+                      <BiCheck className='text-3xl text-green-500' />
+                    </td>
                     {/* Image */}
                     <td className={classes}>
                       <div className='flex items-center gap-3'>
-                        <BiCheck className='text-3xl text-green-500' />
                         <img src={image} alt={title} className='w-[120px]' />
                       </div>
                     </td>
