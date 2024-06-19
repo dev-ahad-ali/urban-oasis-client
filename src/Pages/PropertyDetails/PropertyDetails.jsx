@@ -10,6 +10,8 @@ import { FaHeart } from 'react-icons/fa';
 import { MdRateReview } from 'react-icons/md';
 import { useState } from 'react';
 import ReviewModal from '../../Components/ReviewModal/ReviewModal';
+import { useQuery } from '@tanstack/react-query';
+import ReviewCard from '../../Components/Cards/ReviewCard';
 
 const PropertyDetails = () => {
   const { id } = useParams();
@@ -30,6 +32,14 @@ const PropertyDetails = () => {
     agentImage,
     status,
   } = property;
+
+  const { data: propertyReviews = [] } = useQuery({
+    queryKey: [id, 'propertyReviews'],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/reviews/${id}`);
+      return res.data;
+    },
+  });
 
   const handleWishList = async (id) => {
     const wishDetails = {
@@ -121,6 +131,21 @@ const PropertyDetails = () => {
           </Button>
         </div>
       </section>
+      {/* Reviews */}
+      <div className='flex items-center gap-4 px-8'>
+        <h3 className='font-title text-3xl'>
+          Listed reviews for this property : ({propertyReviews?.length})
+        </h3>
+        <div className='h-[2px] flex-1 bg-black'></div>
+      </div>
+      <section className='mx-auto max-w-7xl px-4 pb-12'>
+        <div className='mt-12 grid grid-cols-3 gap-4'>
+          {propertyReviews.map((review) => (
+            <ReviewCard key={review._id} review={review} />
+          ))}
+        </div>
+      </section>
+
       {/* Review Modal */}
       <ReviewModal propertyId={id} open={open} handleOpen={handleOpen} />
     </>
