@@ -3,15 +3,18 @@ import usePropertyData from '../../Hooks/usePropertyData';
 import useAuth from '../../Hooks/useAuth';
 import { MdRateReview } from 'react-icons/md';
 import { useState } from 'react';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import { toast } from 'react-toastify';
 
 const ReviewModal = ({ open, handleOpen, propertyId }) => {
   const { property } = usePropertyData(propertyId);
   const { user } = useAuth();
   const { title, agentName } = property;
   const date = new Date().toDateString();
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(3);
+  const axiosSecure = useAxiosSecure();
 
-  const handleReview = () => {
+  const handleReview = async () => {
     const reviewMessage = document.getElementById('reviewMessage').value;
 
     const review = {
@@ -26,7 +29,12 @@ const ReviewModal = ({ open, handleOpen, propertyId }) => {
       propertyTitle: title,
     };
 
-    console.log(review);
+    const reviewRes = await axiosSecure.post('/reviews', review);
+    if (reviewRes.data.insertedId) {
+      toast.success('Review Added Successfully');
+      handleOpen(false);
+      setRating(3);
+    }
   };
 
   return (
@@ -36,7 +44,7 @@ const ReviewModal = ({ open, handleOpen, propertyId }) => {
         <Rating value={rating} onChange={setRating} />
       </div>
       <DialogBody className='p-0'>
-        <p>Message:</p>
+        <p className='font-medium'>Message:</p>
         <textarea
           id='reviewMessage'
           className='h-[130px] w-full resize-none rounded-md border border-customBlack p-2'
