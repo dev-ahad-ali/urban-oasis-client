@@ -1,11 +1,9 @@
-import useAuth from '../../../../Hooks/useAuth';
-import ReviewCard from '../../../../Components/Cards/ReviewCard';
 import { useQuery } from '@tanstack/react-query';
+import ReviewCard from '../../../../Components/Cards/ReviewCard';
 import useAxiosPublic from '../../../../Hooks/useAxiosPublic';
 import LoadingSpinner from '../../../../Components/LoadingSpinner/LoadingSpinner';
 
-const MyReviews = () => {
-  const { user } = useAuth();
+const ManageReviews = () => {
   const axiosPublic = useAxiosPublic();
 
   const {
@@ -13,12 +11,10 @@ const MyReviews = () => {
     isPending: reviewsPending,
     refetch,
   } = useQuery({
-    queryKey: [user ? user?.email : '', 'reviews'],
+    queryKey: ['reviews'],
     queryFn: async () => {
-      if (user?.email) {
-        const res = await axiosPublic.get(`/reviews/${user?.email}`);
-        return res.data;
-      }
+      const res = await axiosPublic.get(`/reviews`);
+      return res.data;
     },
   });
 
@@ -28,7 +24,7 @@ const MyReviews = () => {
 
   return (
     <div>
-      <h2 className='text-3xl'>My Reviews</h2>
+      <h2 className='text-3xl'>Manage Reviews</h2>
       <div className='grid grid-cols-3 gap-5'>
         {reviews?.map((review) => (
           <ReviewCard key={review._id} review={review} refetch={refetch} />
@@ -38,4 +34,4 @@ const MyReviews = () => {
   );
 };
 
-export default MyReviews;
+export default ManageReviews;
