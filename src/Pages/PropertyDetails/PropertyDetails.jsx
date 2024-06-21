@@ -36,8 +36,10 @@ const PropertyDetails = () => {
   const { data: propertyReviews = [] } = useQuery({
     queryKey: [id, 'propertyReviews'],
     queryFn: async () => {
-      const res = await axiosPublic.get(`/reviews/${id}`);
-      return res.data;
+      if (id) {
+        const res = await axiosPublic.get(`/review/${id}`);
+        return res.data;
+      }
     },
   });
 

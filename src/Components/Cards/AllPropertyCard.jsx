@@ -10,7 +10,7 @@ import {
 import { Link } from 'react-router-dom';
 
 const AllPropertyCard = ({ property }) => {
-  const { title, image, status, description, _id } = property;
+  const { title, image, minPrice, maxPrice, status, description, _id } = property;
   return (
     <Card className='w-full max-w-[50rem] shadow-lg'>
       <CardHeader floated={false} color='blue-gray'>
@@ -49,6 +49,11 @@ const AllPropertyCard = ({ property }) => {
         <Typography color='gray'>{description}</Typography>
       </CardBody>
       <CardFooter className='pt-3'>
+        <div>
+          <p>
+            ${minPrice} : ${maxPrice}
+          </p>
+        </div>
         <Link to={`/propertyDetails/${_id}`}>
           <Button size='lg' fullWidth={true}>
             Details
