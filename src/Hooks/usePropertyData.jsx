@@ -12,8 +12,8 @@ const usePropertyData = (id) => {
     queryKey: [id, 'propertyDetails'],
     queryFn: async () => {
       if (id) {
-        const res = await axiosSecure.get(`/properties?id=${id}`);
-        return res.data[0];
+        const res = await axiosSecure.get(`/property?id=${id}`);
+        return res.data;
       }
     },
   });

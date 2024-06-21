@@ -1,13 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
-import {
-  Avatar,
-  Button,
-  Chip,
-  IconButton,
-  Tooltip,
-  Typography,
-} from '@material-tailwind/react';
+import { Avatar, Button, Chip, IconButton, Tooltip, Typography } from '@material-tailwind/react';
 import { FaTrash } from 'react-icons/fa6';
 import { MdAdminPanelSettings, MdOutlineSupportAgent } from 'react-icons/md';
 import LoadingSpinner from '../../../../Components/LoadingSpinner/LoadingSpinner';
@@ -49,10 +42,7 @@ const ManageUsers = () => {
             <thead>
               <tr>
                 {TABLE_HEAD.map((head) => (
-                  <th
-                    key={head}
-                    className='border-y border-blue-gray-100 bg-blue-gray-50/50 p-4'
-                  >
+                  <th key={head} className='border-y border-blue-gray-100 bg-blue-gray-50/50 p-4'>
                     <Typography
                       variant='small'
                       color='blue-gray'
@@ -76,11 +66,7 @@ const ManageUsers = () => {
                       <div className='flex items-center gap-3'>
                         <Avatar src={profileImage} alt={name} size='sm' />
                         <div className='flex flex-col'>
-                          <Typography
-                            variant='small'
-                            color='blue-gray'
-                            className='font-normal'
-                          >
+                          <Typography variant='small' color='blue-gray' className='font-normal'>
                             {name}
                           </Typography>
                           <Typography
@@ -105,41 +91,45 @@ const ManageUsers = () => {
                               ? 'green'
                               : role === 'agent'
                                 ? 'cyan'
-                                : 'blue-gray'
+                                : role === 'fraud'
+                                  ? 'red'
+                                  : 'blue-gray'
                           }
                         />
                       </div>
                     </td>
                     {/* Change Role*/}
                     <td className={classes}>
-                      <div className='flex items-center gap-6'>
-                        <Tooltip content='Make Admin'>
-                          <IconButton
-                            onClick={() => {
-                              setModalStatus('userUpdate');
-                              setUpdateRole('admin');
-                              setUserEmail(email);
-                              setOpen(true);
-                            }}
-                            variant='text'
-                          >
-                            <MdAdminPanelSettings className='h-8 w-8 text-green-400' />
-                          </IconButton>
-                        </Tooltip>
-                        <Tooltip content='Make Agent'>
-                          <IconButton
-                            onClick={() => {
-                              setModalStatus('userUpdate');
-                              setUpdateRole('agent');
-                              setUserEmail(email);
-                              setOpen(true);
-                            }}
-                            variant='text'
-                          >
-                            <MdOutlineSupportAgent className='h-8 w-8 text-blue-400' />
-                          </IconButton>
-                        </Tooltip>
-                      </div>
+                      {role === 'user' && (
+                        <div className='flex items-center gap-6'>
+                          <Tooltip content='Make Admin'>
+                            <IconButton
+                              onClick={() => {
+                                setModalStatus('userUpdate');
+                                setUpdateRole('admin');
+                                setUserEmail(email);
+                                setOpen(true);
+                              }}
+                              variant='text'
+                            >
+                              <MdAdminPanelSettings className='h-8 w-8 text-green-400' />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip content='Make Agent'>
+                            <IconButton
+                              onClick={() => {
+                                setModalStatus('userUpdate');
+                                setUpdateRole('agent');
+                                setUserEmail(email);
+                                setOpen(true);
+                              }}
+                              variant='text'
+                            >
+                              <MdOutlineSupportAgent className='h-8 w-8 text-blue-400' />
+                            </IconButton>
+                          </Tooltip>
+                        </div>
+                      )}
                     </td>
                     {/* Mark as Fraud */}
                     <td className={classes}>
