@@ -5,6 +5,7 @@ import { CgMenuRightAlt } from 'react-icons/cg';
 import logo from '../../assets/img/logo.png';
 import { Link } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
+import { IoExit } from 'react-icons/io5';
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
@@ -26,12 +27,7 @@ const NavBar = () => {
             <CgMenuRightAlt />
             Menu
           </Button>
-          <SideMenu
-            open={open}
-            closeSideMenu={closeSideMenu}
-            user={user}
-            logout={logout}
-          />
+          <SideMenu open={open} closeSideMenu={closeSideMenu} user={user} logout={logout} />
         </div>
         <div>
           <img src={logo} alt='logo' className='h-[50px]' />
@@ -40,14 +36,15 @@ const NavBar = () => {
           {loading ? (
             <Spinner color='indigo' />
           ) : user ? (
-            <Badge
-              placement='top-end'
-              overlap='circular'
-              color='green'
-              withBorder
-            >
-              <Avatar src={user?.photoURL} alt='avatar' />
-            </Badge>
+            <div className='flex items-center gap-2'>
+              <Button size='sm' variant='text' className='flex items-center gap-2'>
+                Logout
+                <IoExit className='text-lg' />
+              </Button>
+              <Badge placement='top-end' overlap='circular' color='green' withBorder>
+                <Avatar src={user?.photoURL} alt='avatar' />
+              </Badge>
+            </div>
           ) : (
             <Link to={'/login'}>
               <Button>Login</Button>
