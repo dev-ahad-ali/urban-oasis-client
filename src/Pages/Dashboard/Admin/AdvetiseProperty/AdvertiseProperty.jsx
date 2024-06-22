@@ -4,6 +4,7 @@ import LoadingSpinner from '../../../../Components/LoadingSpinner/LoadingSpinner
 import { Avatar, Button, Chip, Typography } from '@material-tailwind/react';
 import { FaArrowRightArrowLeft } from 'react-icons/fa6';
 import { GiFireworkRocket } from 'react-icons/gi';
+import { toast } from 'react-toastify';
 
 const AdvertiseProperty = () => {
   const axiosSecure = useAxiosSecure();
@@ -21,7 +22,12 @@ const AdvertiseProperty = () => {
   });
 
   const handleAdvertise = (id) => {
-    console.log(id);
+    axiosSecure.patch(`/advertiseProperty/${id}`).then((res) => {
+      if (res.data.modifiedCount > 0) {
+        toast.success('Property Advertised Successfully');
+        refetch();
+      }
+    });
   };
 
   const TABLE_HEAD = ['Image', 'Name', 'Location', 'Price', 'Agent Info', 'Advertise'];
@@ -124,7 +130,11 @@ const AdvertiseProperty = () => {
                             <GiFireworkRocket className='text-lg' />
                           </Button>
                         ) : (
-                          <Chip color='green' value={'Advertised'} />
+                          <Chip
+                            color='green'
+                            className='rounded-none font-semibold'
+                            value={'Advertised'}
+                          />
                         )}
                       </div>
                     </td>
