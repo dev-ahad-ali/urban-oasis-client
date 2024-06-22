@@ -1,3 +1,4 @@
+import NewsLetter from '../../Components/NewsLetter/NewsLetter';
 import Advertised from './Advertised/Advertised';
 import Banner from './Banner/Banner';
 import Reviews from './Reviews/Reviews';
@@ -10,6 +11,7 @@ const Home = () => {
       <Advertised />
       <Services />
       <Reviews />
+      <NewsLetter />
     </>
   );
 };
