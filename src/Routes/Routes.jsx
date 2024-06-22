@@ -22,6 +22,7 @@ import MyReviews from '../Pages/Dashboard/User/MyReviews/MyReviews';
 import MakeOffer from '../Pages/MakeOffer/MakeOffer';
 import Payment from '../Pages/Dashboard/User/Payment/Payment';
 import ManageReviews from '../Pages/Dashboard/Admin/ManageReviews/ManageReviews';
+import AdvertiseProperty from '../Pages/Dashboard/Admin/AdvetiseProperty/AdvertiseProperty';
 
 const router = createBrowserRouter([
   {
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/manageProperties',
         element: <ManageProperties />,
+      },
+      {
+        path: '/dashboard/advertiseProperty',
+        element: <AdvertiseProperty />,
       },
       {
         path: '/dashboard/manageReviews',
