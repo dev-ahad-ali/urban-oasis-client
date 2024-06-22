@@ -25,7 +25,7 @@ const Advertised = () => {
           Out best destinations...
         </h2>
       </div>
-      <div className=',md:grid-cols-2 relative grid max-w-[1920px] gap-x-8 gap-y-12 px-6'>
+      <div className='relative grid max-w-[1920px] gap-x-8 gap-y-12 px-6 md:grid-cols-2'>
         {displayProperties.slice(0, 4).map((property) => (
           <AdvertisedCard key={property._id} property={property} />
         ))}
