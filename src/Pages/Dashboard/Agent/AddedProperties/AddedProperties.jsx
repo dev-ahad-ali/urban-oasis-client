@@ -37,7 +37,9 @@ const AddedProperties = () => {
 
   return (
     <section>
-      <h2 className='text-3xl'>Added Properties</h2>
+      <h2 className='mb-12 border-b-2 border-customBlack pb-4 font-title text-4xl'>
+        Added Properties
+      </h2>
       <div>
         <table className='mt-4 w-full min-w-max table-auto text-left'>
           <thead>

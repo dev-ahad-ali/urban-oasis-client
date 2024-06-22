@@ -84,7 +84,7 @@ const CheckoutForm = ({ offerAmount, propertyId }) => {
 
   return (
     <div>
-      <h2 className='text-2xl'>Payment Amount : {offerAmount}</h2>
+      <h2 className='my-6 text-2xl'>Payment Amount : {offerAmount}</h2>
       <form
         onSubmit={handleSubmit}
         className='mx-auto max-w-2xl rounded-md border border-black p-4 px-3'

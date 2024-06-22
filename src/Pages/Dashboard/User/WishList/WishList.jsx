@@ -26,7 +26,7 @@ const WishList = () => {
 
   return (
     <div>
-      <h2 className='text-3xl'>Wish List</h2>
+      <h2 className='mb-12 border-b-2 border-customBlack pb-4 font-title text-4xl'>Wish List</h2>
       <div>
         {wishItems.map((wishItem) => (
           <WishPropertyCard key={wishItem._id} wishItem={wishItem} wishRefetch={wishRefetch} />

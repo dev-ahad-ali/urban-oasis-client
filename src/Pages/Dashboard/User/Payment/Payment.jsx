@@ -11,7 +11,9 @@ const Payment = () => {
   const { property } = usePropertyData(state.propertyId);
   return (
     <div>
-      <h2 className='text-2xl'>Payment For : {property.title}</h2>
+      <h2 className='mb-12 border-b-2 border-customBlack pb-4 font-title text-4xl'>
+        Payment For : {property.title}
+      </h2>
       <div>
         <Elements stripe={stripePromise}>
           <CheckoutForm offerAmount={state.offerAmount} propertyId={state.propertyId} />

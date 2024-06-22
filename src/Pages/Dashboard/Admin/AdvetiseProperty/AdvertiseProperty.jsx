@@ -39,7 +39,9 @@ const AdvertiseProperty = () => {
   return (
     <section>
       <div>
-        <h2 className='font-title text-5xl'>Advertise Property</h2>
+        <h2 className='mb-12 border-b-2 border-customBlack pb-4 font-title text-4xl'>
+          Advertise Property
+        </h2>
       </div>
       <div>
         <table className='mt-4 w-full min-w-max table-auto text-left'>

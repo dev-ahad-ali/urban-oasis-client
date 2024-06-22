@@ -54,7 +54,7 @@ const AddProperty = () => {
 
   return (
     <section className='min-h-full'>
-      <h2 className='text-3xl'>AddProperty</h2>
+      <h2 className='mb-12 border-b-2 border-customBlack pb-4 font-title text-4xl'>AddProperty</h2>
 
       <div className='mt-12 min-h-full'>
         <form onSubmit={handleSubmit(handleAddProperty)} className='flex flex-col gap-10'>
