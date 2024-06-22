@@ -62,7 +62,7 @@ const ManageUsers = () => {
                 const classes = isLast ? 'p-4' : 'p-4 border-b border-gray-600';
 
                 return (
-                  <tr key={_id}>
+                  <tr key={_id} className={`${role === 'fraud' && 'bg-red-200'}`}>
                     {/* Name and Info */}
                     <td className={classes}>
                       <div className='flex items-center gap-3'>
@@ -140,6 +140,13 @@ const ManageUsers = () => {
                           size='sm'
                           color='red'
                           variant='outlined'
+                          onClick={() => {
+                            setModalStatus('markAsFraud');
+                            setUserId(_id);
+                            setUpdateRole('fraud');
+                            setUserEmail(email);
+                            setOpen(true);
+                          }}
                           className='rounded-none capitalize'
                         >
                           Mark as Fraud
