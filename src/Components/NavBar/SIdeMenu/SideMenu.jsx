@@ -35,7 +35,7 @@ const SideMenu = ({ open, closeSideMenu, user, logout }) => {
       </div>
       <List>
         <NavLink
-          to={`/dashboard/${userRole === 'admin' ? 'adminHome' : userRole === 'agent' ? 'agentProfile' : 'userProfile'}`}
+          to={`/dashboard/${userRole === 'admin' ? 'adminProfile' : userRole === 'agent' ? 'agentProfile' : 'userProfile'}`}
         >
           <ListItem>
             <ListItemPrefix>
