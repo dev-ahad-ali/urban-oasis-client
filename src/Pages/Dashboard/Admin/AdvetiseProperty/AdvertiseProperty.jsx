@@ -10,7 +10,7 @@ const AdvertiseProperty = () => {
   const axiosSecure = useAxiosSecure();
 
   const {
-    data: advertiseProperties,
+    data: advertiseProperties = [],
     isPending,
     refetch,
   } = useQuery({
