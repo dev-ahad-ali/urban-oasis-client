@@ -26,7 +26,7 @@ const Advertised = () => {
         </h2>
       </div>
       <div className='relative grid max-w-[1920px] grid-cols-2 gap-x-8 gap-y-12 px-6'>
-        {displayProperties.map((property) => (
+        {displayProperties.slice(0, 4).map((property) => (
           <AdvertisedCard key={property._id} property={property} />
         ))}
         <span className='absolute top-1/2 block h-[2px] w-full bg-customBlack'></span>

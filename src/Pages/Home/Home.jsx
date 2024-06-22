@@ -1,5 +1,6 @@
 import Advertised from './Advertised/Advertised';
 import Banner from './Banner/Banner';
+import Reviews from './Reviews/Reviews';
 import Services from './Services/Services';
 
 const Home = () => {
@@ -8,6 +9,7 @@ const Home = () => {
       <Banner />
       <Advertised />
       <Services />
+      <Reviews />
     </>
   );
 };
