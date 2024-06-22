@@ -26,7 +26,7 @@ const AllPropertyCard = ({ property }) => {
   } = property;
   return (
     <Card className='w-full max-w-[50rem] shadow-lg'>
-      <CardHeader floated={false} color='blue-gray' className='h-[400px]'>
+      <CardHeader floated={false} color='blue-gray' className='md:h-[400px]'>
         <img className='h-full w-full' src={image} />
         {propertyBought === 'bought' && (
           <span className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-green-400 px-4 py-2 font-title text-7xl uppercase text-white'>
@@ -51,7 +51,7 @@ const AllPropertyCard = ({ property }) => {
           </Typography>
         </div>
         <Typography color='gray'>{description.slice(0, 400)}</Typography>
-        <div className='flex items-center justify-between gap-2'>
+        <div className='flex flex-col items-center justify-between gap-2 md:flex-row'>
           <p className='font-title text-2xl font-bold uppercase'>
             Price : ${minPrice} : ${maxPrice}
           </p>

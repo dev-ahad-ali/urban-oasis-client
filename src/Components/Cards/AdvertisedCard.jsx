@@ -6,7 +6,7 @@ const AdvertisedCard = ({ property }) => {
   const { title, image, location, maxPrice, _id, minPrice, propertyBought } = property;
   return (
     <div className='group p-3'>
-      <div className='relative h-[400px] overflow-hidden'>
+      <div className='relative overflow-hidden md:h-[400px]'>
         <img className='h-full w-full duration-700 group-hover:scale-125' src={image} alt='' />
         {propertyBought === 'bought' && (
           <span className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-green-400 px-4 py-2 font-title text-7xl uppercase text-white'>
@@ -14,7 +14,7 @@ const AdvertisedCard = ({ property }) => {
           </span>
         )}
       </div>
-      <h3 className='mt-2 text-center font-title text-3xl font-bold'>{title}</h3>
+      <h3 className='mt-2 text-center font-title text-xl font-bold md:text-3xl'>{title}</h3>
       <h4 className='mt-4 text-center text-2xl font-bold text-gray-600 underline underline-offset-4'>
         {location}
       </h4>
@@ -23,7 +23,7 @@ const AdvertisedCard = ({ property }) => {
           ${minPrice}-${maxPrice}
         </p>
         <Link to={`/propertyDetails/${_id}`}>
-          <Button variant='text' className='flex items-center gap-2 font-title text-lg'>
+          <Button variant='text' className='flex items-center gap-2 font-title md:text-lg'>
             View Details
             <BiRightArrow />
           </Button>

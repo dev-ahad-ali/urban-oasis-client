@@ -22,7 +22,7 @@ const Reviews = () => {
   return (
     <section className='my-32'>
       <div className='mb-24'>
-        <h2 className='mx-6 border-y-2 border-customBlack py-2 text-center font-title text-6xl uppercase'>
+        <h2 className='mx-6 border-y-2 border-customBlack py-2 text-center font-title text-3xl uppercase md:text-6xl'>
           What our clients say...
         </h2>
       </div>

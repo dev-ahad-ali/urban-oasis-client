@@ -22,7 +22,7 @@ const NavBar = () => {
             onClick={openSideMenu}
             variant='text'
             size='lg'
-            className='flex items-center gap-1 rounded-none border-r-2 border-customBlack p-0 px-5 py-3 font-title text-lg font-medium capitalize'
+            className='flex items-center gap-1 rounded-none border-r-2 border-customBlack p-0 px-5 py-3 font-title font-medium capitalize md:text-lg'
           >
             <CgMenuRightAlt />
             Menu
@@ -30,7 +30,7 @@ const NavBar = () => {
           <SideMenu open={open} closeSideMenu={closeSideMenu} user={user} logout={logout} />
         </div>
         <div>
-          <img src={logo} alt='logo' className='h-[50px]' />
+          <img src={logo} alt='logo' className='h-0 md:h-[50px]' />
         </div>
         <div>
           {loading ? (

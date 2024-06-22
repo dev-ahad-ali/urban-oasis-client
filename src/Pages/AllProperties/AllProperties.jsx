@@ -36,7 +36,7 @@ const AllProperties = () => {
       <h2 className='mx-auto max-w-7xl px-4 py-12 font-title text-5xl capitalize'>
         All listed Properties....
       </h2>
-      <div className='my-12 flex items-center justify-end gap-6'>
+      <div className='my-12 flex flex-col items-center justify-end gap-6 md:flex-row'>
         <div>
           <Select label='Sort Price'>
             <Option onClick={() => setSort('')}>All</Option>
@@ -65,7 +65,7 @@ const AllProperties = () => {
           )}
         </div>
       </div>
-      <div className='grid grid-cols-2 gap-3'>
+      <div className='grid gap-3 md:grid-cols-2'>
         {allProperties.length === 0 && <h2 className='font-title text-4xl'>No Properties Found</h2>}
         {allProperties?.map((property) => (
           <AllPropertyCard key={property._id} property={property} />

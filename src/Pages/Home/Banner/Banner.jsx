@@ -4,7 +4,7 @@ const Banner = () => {
   return (
     <section>
       <div className='mt-36 max-w-5xl px-6'>
-        <h1 className='font-title text-[130px] uppercase leading-none'>
+        <h1 className='font-title text-5xl uppercase leading-none md:text-[130px]'>
           BUILDING THE FUTURE WITH DISTINCTION
         </h1>
       </div>

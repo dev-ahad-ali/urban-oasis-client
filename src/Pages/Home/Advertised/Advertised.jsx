@@ -21,16 +21,16 @@ const Advertised = () => {
   return (
     <section>
       <div className='my-32'>
-        <h2 className='mx-6 border-y-2 border-customBlack py-2 text-center font-title text-6xl uppercase'>
+        <h2 className='mx-6 border-y-2 border-customBlack py-2 text-center font-title text-3xl uppercase md:text-6xl'>
           Out best destinations...
         </h2>
       </div>
-      <div className='relative grid max-w-[1920px] grid-cols-2 gap-x-8 gap-y-12 px-6'>
+      <div className=',md:grid-cols-2 relative grid max-w-[1920px] gap-x-8 gap-y-12 px-6'>
         {displayProperties.slice(0, 4).map((property) => (
           <AdvertisedCard key={property._id} property={property} />
         ))}
-        <span className='absolute top-1/2 block h-[2px] w-full bg-customBlack'></span>
-        <span className='absolute left-1/2 top-0 block h-full w-[3px] bg-customBlack'></span>
+        <span className='absolute top-1/2 hidden h-[2px] w-full bg-customBlack md:block'></span>
+        <span className='absolute left-1/2 top-0 hidden h-full w-[3px] bg-customBlack md:block'></span>
       </div>
     </section>
   );
