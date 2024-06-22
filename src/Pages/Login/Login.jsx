@@ -5,6 +5,7 @@ import { MdHome } from 'react-icons/md';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
 import { toast } from 'react-toastify';
+import useAxiosPublic from '../../Hooks/useAxiosPublic';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,6 +14,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const to = location?.state?.from?.pathname || '/';
+  const axiosPublic = useAxiosPublic();
 
   const {
     register,
@@ -30,19 +32,26 @@ const Login = () => {
       })
       .catch(() => {
         setLoading(false);
-        setLoginError(
-          'Please check if you have entered a valid email or password',
-        );
+        setLoginError('Please check if you have entered a valid email or password');
       });
   };
 
   const handleGoogleSignIn = () => {
     googleSignIn()
-      .then((res) => {
-        if (res.user) {
-          toast.success('Login Successful');
-          navigate(to);
-        }
+      .then(async (res) => {
+        const userInfo = {
+          name: res.user.name,
+          email: res.user?.providerData[0]?.email || res.user?.email,
+          profileImage: res.user.photoURL,
+          role: 'user',
+        };
+
+        axiosPublic.post('/users', userInfo).then((res) => {
+          if (res.data.insertedId) {
+            toast.success('Login Successful');
+            navigate(to);
+          }
+        });
       })
       .catch(() => {
         setLoading(false);
@@ -53,9 +62,7 @@ const Login = () => {
     <div>
       <div className='container relative mx-auto flex min-h-[100vh] flex-col items-center justify-center p-5'>
         <div className='font-heading flex w-full flex-col items-center justify-center space-y-14'>
-          <h2 className='text-main text-center text-3xl font-bold'>
-            Login to your account
-          </h2>
+          <h2 className='text-main text-center text-3xl font-bold'>Login to your account</h2>
 
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -66,7 +73,7 @@ const Login = () => {
               name='email'
               placeholder='Email address'
               id='eamil'
-              className='focus:border-main placeholder-customBlack w-full border-b-[1px] border-[lightgray] bg-transparent pb-2 transition-all duration-500 focus:outline-none'
+              className='focus:border-main w-full border-b-[1px] border-[lightgray] bg-transparent pb-2 placeholder-customBlack transition-all duration-500 focus:outline-none'
               {...register('email', {
                 required: {
                   value: true,
@@ -75,9 +82,7 @@ const Login = () => {
               })}
             />
             {errors.email && (
-              <p className='text-sm font-semibold text-red-500'>
-                {errors.email.message}
-              </p>
+              <p className='text-sm font-semibold text-red-500'>{errors.email.message}</p>
             )}
             <div className='relative flex w-full items-center justify-center'>
               <input
@@ -85,7 +90,7 @@ const Login = () => {
                 name='password'
                 placeholder='Password'
                 id='password'
-                className='focus:border-main placeholder-customBlack w-full border-b-[1px] border-[lightgray] bg-transparent pb-2 transition-all duration-500 focus:outline-none'
+                className='focus:border-main w-full border-b-[1px] border-[lightgray] bg-transparent pb-2 placeholder-customBlack transition-all duration-500 focus:outline-none'
                 {...register('password', {
                   required: {
                     value: true,
@@ -106,9 +111,7 @@ const Login = () => {
                 {errors.Password.message}
               </p>
             ) : loginError ? (
-              <p className='font-noto text-sm font-semibold text-red-500'>
-                {loginError}
-              </p>
+              <p className='font-noto text-sm font-semibold text-red-500'>{loginError}</p>
             ) : (
               <></>
             )}
@@ -136,9 +139,7 @@ const Login = () => {
             <BsGoogle className='text-white' /> Sign in using Google
           </button>
           <div className='mt-5 flex items-center justify-center gap-1'>
-            <p className='text-center font-medium'>
-              {"Dont't"} have an account?
-            </p>
+            <p className='text-center font-medium'>{"Dont't"} have an account?</p>
             <Link
               to='/signUp'
               className='border-main border-b-2 border-t-2 border-t-[#ffffff00] px-2 py-1 font-bold duration-300 hover:border-t-2 hover:text-blue-500'

@@ -34,7 +34,7 @@ const PropertyDetails = () => {
     propertyBought,
   } = property;
 
-  const { data: propertyReviews = [] } = useQuery({
+  const { data: propertyReviews = [], refetch } = useQuery({
     queryKey: [id, 'propertyReviews'],
     queryFn: async () => {
       if (id) {
@@ -48,7 +48,7 @@ const PropertyDetails = () => {
     const wishDetails = {
       propertyId: id,
       userName: user?.displayName,
-      userEmail: user?.email,
+      userEmail: user?.email || user?.providerData[0]?.email,
     };
 
     const wishRes = await axiosPublic.post('/wishList', wishDetails);
@@ -158,7 +158,7 @@ const PropertyDetails = () => {
       </section>
 
       {/* Review Modal */}
-      <ReviewModal propertyId={id} open={open} handleOpen={handleOpen} />
+      <ReviewModal propertyId={id} open={open} handleOpen={handleOpen} refetch={refetch} />
     </>
   );
 };

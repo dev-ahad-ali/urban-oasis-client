@@ -12,10 +12,10 @@ const useRole = () => {
     isPending: userRoleLoading,
     refetch,
   } = useQuery({
-    queryKey: [user ? user.email : '', token, 'role'],
+    queryKey: [user ? user.email || user?.providerData[0]?.email : '', token, 'role'],
     queryFn: async () => {
-      if (user.email && token) {
-        const res = await axiosSecure.get(`/user/${user?.email}`);
+      if ((user.email && token) || (user?.providerData[0]?.email && token)) {
+        const res = await axiosSecure.get(`/user/${user?.email || user?.providerData[0]?.email}`);
         return res.data;
       }
     },

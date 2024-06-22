@@ -34,7 +34,7 @@ const AddProperty = () => {
         description: data.description,
         minPrice: data.minPrice,
         maxPrice: data.maxPrice,
-        agentEmail: user?.email,
+        agentEmail: user?.email || user?.providerData[0]?.email,
         agentName: user?.displayName,
         agentImage: user?.photoURL,
         image: imageRes.data.data.display_url,

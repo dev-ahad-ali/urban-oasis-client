@@ -8,10 +8,12 @@ const PropertyBought = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const { data: offers = [], isPending: offersPending } = useQuery({
-    queryKey: [user?.email, 'offers'],
+    queryKey: [user?.email || user?.providerData[0]?.email, 'offers'],
     queryFn: async () => {
       if (user) {
-        const offersRes = await axiosSecure.get(`/offers/${user?.email}`);
+        const offersRes = await axiosSecure.get(
+          `/offers/${user?.email || user?.providerData[0]?.email}`,
+        );
         return offersRes.data;
       }
     },

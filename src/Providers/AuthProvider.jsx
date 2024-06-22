@@ -16,7 +16,7 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const googleProvider = new GoogleAuthProvider();
+  const googleProvider = new GoogleAuthProvider().addScope('email');
   const axiosPublic = useAxiosPublic();
 
   // create user
@@ -55,8 +55,13 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      const userEmail =
+        currentUser?.providerData[0].email ||
+        user?.providerData[0]?.email ||
+        currentUser?.email ||
+        user?.email;
       if (currentUser) {
-        const userInfo = { email: currentUser.email };
+        const userInfo = { email: userEmail };
         axiosPublic.post('/jwt', userInfo).then((res) => {
           if (res.data.token) {
             localStorage.setItem('access-token', res.data.token);

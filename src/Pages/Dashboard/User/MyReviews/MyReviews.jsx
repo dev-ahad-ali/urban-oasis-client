@@ -13,10 +13,12 @@ const MyReviews = () => {
     isPending: reviewsPending,
     refetch,
   } = useQuery({
-    queryKey: [user ? user?.email : '', 'reviews'],
+    queryKey: [user ? user?.email || user?.providerData[0]?.email : '', 'reviews'],
     queryFn: async () => {
-      if (user?.email) {
-        const res = await axiosPublic.get(`/reviews/${user?.email}`);
+      if (user?.email || user?.providerData[0]?.email) {
+        const res = await axiosPublic.get(
+          `/reviews/${user?.email || user?.providerData[0]?.email}`,
+        );
         return res.data;
       }
     },

@@ -10,9 +10,9 @@ const SoldProperties = () => {
   const axiosSecure = useAxiosSecure();
 
   const { data: soldPropertiesDetails = {}, isPending } = useQuery({
-    queryKey: [user ? user.email : '', 'soldProperties'],
+    queryKey: [user ? user.email || user?.providerData[0]?.email : '', 'soldProperties'],
     queryFn: async () => {
-      if (user.email) {
+      if (user.email || user?.providerData[0]?.email) {
         const res = await axiosSecure.get(`/soldProperties/${user?.email}`);
         return res.data;
       }

@@ -13,9 +13,11 @@ const WishList = () => {
     isPending: wishListPending,
     refetch: wishRefetch,
   } = useQuery({
-    queryKey: [user?.email, 'wishProperties'],
+    queryKey: [user?.email || user?.providerData[0]?.email, 'wishProperties'],
     queryFn: async () => {
-      const wishRes = await axiosSecure.get(`/wishList/${user?.email}`);
+      const wishRes = await axiosSecure.get(
+        `/wishList/${user?.email || user?.providerData[0]?.email}`,
+      );
       return wishRes.data;
     },
   });

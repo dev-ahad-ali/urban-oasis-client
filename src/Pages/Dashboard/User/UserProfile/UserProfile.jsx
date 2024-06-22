@@ -3,7 +3,7 @@ import useRole from '../../../../Hooks/useRole';
 
 const UserProfile = () => {
   const { user } = useAuth();
-  const { userRole } = useRole(user.email);
+  const { userRole } = useRole();
   return (
     <div>
       <h2 className='mb-12 border-b-2 border-customBlack pb-4 font-title text-4xl'>User Profile</h2>
@@ -15,7 +15,7 @@ const UserProfile = () => {
         </div>
         <div className='flex flex-col gap-4'>
           <h4 className='font-title text-xl font-semibold'>Name : {user.displayName}</h4>
-          <h4>Email : {user.email}</h4>
+          <h4>Email : {user.email || user?.providerData[0]?.email}</h4>
           {userRole !== 'user' && (
             <h4 className='bg-green-400 px-4 py-2 font-title font-bold capitalize text-white'>
               Special Role : {userRole}

@@ -51,7 +51,7 @@ const CheckoutForm = ({ offerAmount, propertyId }) => {
       payment_method: {
         card: card,
         billing_details: {
-          email: user?.email || 'anonymous',
+          email: user?.email || user?.providerData[0]?.email || 'anonymous',
           name: user?.displayName || 'anonymous',
         },
       },
@@ -67,7 +67,7 @@ const CheckoutForm = ({ offerAmount, propertyId }) => {
 
         const paymentInfo = {
           buyerName: user?.displayName,
-          buyerEmail: user?.email,
+          buyerEmail: user?.email || user?.providerData[0]?.email,
           paymentId: paymentIntent.id,
           price: offerAmount,
         };

@@ -6,7 +6,7 @@ import { useState } from 'react';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { toast } from 'react-toastify';
 
-const ReviewModal = ({ open, handleOpen, propertyId }) => {
+const ReviewModal = ({ open, handleOpen, propertyId, refetch }) => {
   const { property } = usePropertyData(propertyId);
   const { user } = useAuth();
   const { title, agentName } = property;
@@ -20,7 +20,7 @@ const ReviewModal = ({ open, handleOpen, propertyId }) => {
     const review = {
       reviewerImage: user?.photoURL,
       reviewerName: user?.displayName,
-      reviewerEmail: user?.email,
+      reviewerEmail: user?.email || user?.providerData[0]?.email,
       reviewMessage: reviewMessage,
       reviewRating: rating,
       reviewDate: date,
@@ -32,6 +32,7 @@ const ReviewModal = ({ open, handleOpen, propertyId }) => {
     const reviewRes = await axiosSecure.post('/reviews', review);
     if (reviewRes.data.insertedId) {
       toast.success('Review Added Successfully');
+      refetch();
       handleOpen(false);
       setRating(3);
     }

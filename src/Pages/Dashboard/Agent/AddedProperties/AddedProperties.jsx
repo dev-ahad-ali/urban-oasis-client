@@ -22,9 +22,11 @@ const AddedProperties = () => {
     isPending: propertiesPending,
     refetch,
   } = useQuery({
-    queryKey: [user?.email, 'addedProperties'],
+    queryKey: [user?.email || user?.providerData[0]?.email, 'addedProperties'],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/properties/${user?.email}`);
+      const res = await axiosSecure.get(
+        `/properties/${user?.email || user?.providerData[0]?.email}`,
+      );
       return res.data;
     },
   });

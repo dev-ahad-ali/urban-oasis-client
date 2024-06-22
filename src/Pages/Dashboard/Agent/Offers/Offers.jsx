@@ -14,10 +14,12 @@ const Offers = () => {
     isPending: agentOffersPending,
     refetch,
   } = useQuery({
-    queryKey: [user?.email, 'agentOffers'],
+    queryKey: [user?.email || user?.providerData[0]?.email, 'agentOffers'],
     queryFn: async () => {
       if (user) {
-        const offersRes = await axiosSecure.get(`/agentOffers/${user?.email}`);
+        const offersRes = await axiosSecure.get(
+          `/agentOffers/${user?.email || user?.providerData[0]?.email}`,
+        );
         return offersRes.data;
       }
     },
