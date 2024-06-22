@@ -23,6 +23,9 @@ import MakeOffer from '../Pages/MakeOffer/MakeOffer';
 import Payment from '../Pages/Dashboard/User/Payment/Payment';
 import ManageReviews from '../Pages/Dashboard/Admin/ManageReviews/ManageReviews';
 import AdvertiseProperty from '../Pages/Dashboard/Admin/AdvetiseProperty/AdvertiseProperty';
+import PrivateRoute from './PirvateRoute/PrivateRoute';
+import AdminRoute from './AdminRoute/AdminRoute';
+import AgentRoute from './AgentRoute/AgentRoute';
 
 const router = createBrowserRouter([
   {
@@ -44,11 +47,19 @@ const router = createBrowserRouter([
       },
       {
         path: '/allProperties',
-        element: <AllProperties />,
+        element: (
+          <PrivateRoute>
+            <AllProperties />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/propertyDetails/:id',
-        element: <PropertyDetails />,
+        element: (
+          <PrivateRoute>
+            <PropertyDetails />
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -57,18 +68,30 @@ const router = createBrowserRouter([
 
   {
     path: '/dashboard',
-    element: <DashboardLayout />,
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
     errorElement: <ErrorPage />,
     children: [
       // Admin Routes -----
 
       {
         path: '/dashboard/manageUsers',
-        element: <ManageUsers />,
+        element: (
+          <AdminRoute>
+            <ManageUsers />
+          </AdminRoute>
+        ),
       },
       {
         path: '/dashboard/adminProfile',
-        element: <AdminProfile />,
+        element: (
+          <AdminRoute>
+            <AdminProfile />
+          </AdminRoute>
+        ),
       },
       {
         path: '/dashboard/manageProperties',
@@ -76,60 +99,112 @@ const router = createBrowserRouter([
       },
       {
         path: '/dashboard/advertiseProperty',
-        element: <AdvertiseProperty />,
+        element: (
+          <AdminRoute>
+            <AdvertiseProperty />
+          </AdminRoute>
+        ),
       },
       {
         path: '/dashboard/manageReviews',
-        element: <ManageReviews />,
+        element: (
+          <AdminRoute>
+            <ManageReviews />
+          </AdminRoute>
+        ),
       },
       // Agent Routes-----
 
       {
         path: '/dashboard/agentProfile',
-        element: <AgentProfile />,
+        element: (
+          <AgentRoute>
+            <AgentProfile />
+          </AgentRoute>
+        ),
       },
       {
         path: '/dashboard/addProperty',
-        element: <AddProperty />,
+        element: (
+          <AgentRoute>
+            <AddProperty />
+          </AgentRoute>
+        ),
       },
       {
         path: '/dashboard/addedProperties',
-        element: <AddedProperties />,
+        element: (
+          <AgentRoute>
+            <AddedProperties />
+          </AgentRoute>
+        ),
       },
       {
         path: '/dashboard/offers',
-        element: <Offers />,
+        element: (
+          <AgentRoute>
+            <Offers />
+          </AgentRoute>
+        ),
       },
       {
         path: '/dashboard/soldProperties',
-        element: <SoldProperties />,
+        element: (
+          <AgentRoute>
+            <SoldProperties />
+          </AgentRoute>
+        ),
       },
 
       //User Routes ----
 
       {
         path: '/dashboard/userProfile',
-        element: <UserProfile />,
+        element: (
+          <PrivateRoute>
+            <UserProfile />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/dashboard/userWishList',
-        element: <WishList />,
+        element: (
+          <PrivateRoute>
+            <WishList />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/dashboard/userPropertyBought',
-        element: <PropertyBought />,
+        element: (
+          <PrivateRoute>
+            <PropertyBought />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/dashboard/userReviews',
-        element: <MyReviews />,
+        element: (
+          <PrivateRoute>
+            <MyReviews />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/dashboard/makeOffer',
-        element: <MakeOffer />,
+        element: (
+          <PrivateRoute>
+            <MakeOffer />
+          </PrivateRoute>
+        ),
       },
       {
         path: '/dashboard/payment',
-        element: <Payment />,
+        element: (
+          <PrivateRoute>
+            <Payment />
+          </PrivateRoute>
+        ),
       },
     ],
   },
