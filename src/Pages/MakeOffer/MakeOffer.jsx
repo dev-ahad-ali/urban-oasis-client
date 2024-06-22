@@ -146,8 +146,8 @@ const MakeOffer = () => {
               className='mt-2 block w-full rounded-lg border border-gray-200 bg-white px-5 py-2.5 disabled:bg-gray-400'
             />
           </div>
-          <div>
-            <Button type='submit' color='green'>
+          <div className='text-center'>
+            <Button type='submit' className='mt-12 w-96 text-lg' color='green'>
               Offer
             </Button>
           </div>

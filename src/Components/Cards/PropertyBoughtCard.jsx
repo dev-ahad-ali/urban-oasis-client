@@ -9,33 +9,53 @@ const PropertyBoughtCard = ({ offer }) => {
 
   return (
     <Card className='w-full max-w-[48rem] flex-row'>
-      <CardHeader shadow={false} floated={false} className='m-0 w-2/5 shrink-0 rounded-r-none'>
+      <CardHeader
+        shadow={false}
+        floated={false}
+        className='relative m-0 w-2/5 shrink-0 rounded-r-none'
+      >
         <img src={image} className='h-full w-full object-cover' />
+        {propertyBought === 'bought' && status === 'accepted' ? (
+          <span className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-green-400 px-4 py-2 font-title text-2xl uppercase text-white'>
+            Bought
+          </span>
+        ) : status === 'rejected' ? (
+          <span className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-400 px-4 py-2 font-title text-2xl uppercase text-white'>
+            Rejected
+          </span>
+        ) : (
+          <></>
+        )}
       </CardHeader>
       <CardBody>
-        <Typography variant='h6' color='gray' className='mb-4 uppercase'>
-          {status === 'accepted' && propertyBought === 'bought' ? 'Bought' : status}
+        <Typography variant='h6' color='gray' className='mb-2 capitalize'>
+          Status : {status === 'accepted' && propertyBought === 'bought' ? 'Bought' : status}
         </Typography>
-        <Typography variant='h4' color='blue-gray' className='mb-2'>
+        <Typography variant='h3' color='blue-gray' className='mb-2 font-title'>
           {title}
         </Typography>
         <Typography color='gray' className='font-normal'>
-          {location}
+          Location : <span className='font-bold'>{location}</span>
         </Typography>
         <Typography color='gray' className='font-normal'>
-          {agentName}
+          Agent Name: <span className='font-bold'>{agentName}</span>
         </Typography>
-        <Typography color='gray' className='font-normal'>
-          ${offerAmount}
-        </Typography>
-        <Typography color='gray' className='font-normal'>
-          {offerDate}
-        </Typography>
+        <div className='flex items-center justify-between gap-4'>
+          <Typography color='gray' className='font-normal'>
+            Amount : <span className='font-bold'>${offerAmount}</span>
+          </Typography>
+          <Typography color='gray' className='text-sm font-normal'>
+            Date : <span className='font-bold'>{offerDate}</span>
+          </Typography>
+        </div>
         {status === 'accepted' && paymentInfo ? (
-          <p>{paymentInfo.paymentId}</p>
+          <p>
+            <span className='font-bold'>Transaction ID</span>:{' '}
+            <span className='text-xs text-black'>{paymentInfo.paymentId}</span>
+          </p>
         ) : status === 'accepted' ? (
           <Link to={'/dashboard/payment'} state={{ propertyId, offerAmount }}>
-            <Button variant='text' color='green' className='flex items-center gap-2'>
+            <Button color='green' className='mt-1 flex items-center gap-2 rounded-none'>
               Pay
               <svg
                 xmlns='http://www.w3.org/2000/svg'

@@ -7,7 +7,18 @@ import { Link } from 'react-router-dom';
 
 const WishPropertyCard = ({ wishItem, wishRefetch }) => {
   const { property, propertyPending } = usePropertyData(wishItem.propertyId);
-  const { title, image, agentName, agentImage } = property;
+  const {
+    title,
+    image,
+    location,
+    minPrice,
+    maxPrice,
+    agentName,
+    agentImage,
+    description,
+    status,
+    propertyBought,
+  } = property;
   const axiosSecure = useAxiosSecure();
 
   const handleRemoveWish = async (id) => {
@@ -24,25 +35,30 @@ const WishPropertyCard = ({ wishItem, wishRefetch }) => {
 
   return (
     <div className='max-w-2xl overflow-hidden rounded-lg bg-white shadow-md dark:bg-gray-800'>
-      <img className='h-64 w-full object-cover' src={image} alt='Article' />
-
-      <div className='p-6'>
-        <div>
-          <span className='text-xs font-medium uppercase text-blue-600 dark:text-blue-400'>
-            Property
+      <div className='relative'>
+        <img className='h-64 w-full object-cover' src={image} alt='Article' />
+        {propertyBought === 'bought' && (
+          <span className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-green-400 px-4 py-2 font-title text-7xl uppercase text-white'>
+            Sold
           </span>
-          <a
-            href='#'
-            className='mt-2 block transform text-xl font-semibold text-gray-800 transition-colors duration-300 hover:text-gray-600 hover:underline dark:text-white'
-            tabIndex='0'
-            role='link'
-          >
+        )}
+      </div>
+      <div className='p-6'>
+        <div className='flex items-center justify-between gap-1'>
+          <span className='text-sm font-bold uppercase text-green-600 dark:text-blue-400'>
+            Status : {status}
+          </span>
+          <span className='font-bold'>Location : {location}</span>
+          <p className='font-bold'>
+            Price : ${minPrice}:${maxPrice}
+          </p>
+        </div>
+        <div>
+          <h3 className='mt-2 block transform text-xl font-semibold text-gray-800 transition-colors duration-300 hover:text-gray-600 hover:underline dark:text-white'>
             {title}
-          </a>
+          </h3>
           <p className='mt-2 text-sm text-gray-600 dark:text-gray-400'>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Molestie parturient et sem
-            ipsum volutpat vel. Natoque sem et aliquam mauris egestas quam volutpat viverra. In
-            pretium nec senectus erat. Et malesuada lobortis.
+            {description.slice(0, 300)}
           </p>
         </div>
 
@@ -61,9 +77,13 @@ const WishPropertyCard = ({ wishItem, wishRefetch }) => {
             </div>
             <div className='flex items-center gap-2'>
               <Link to={'/dashboard/makeOffer'} state={wishItem}>
-                <Button>Make An Offer</Button>
+                <Button disabled={propertyBought === 'bought' ? true : false} color='green'>
+                  Make An Offer
+                </Button>
               </Link>
-              <Button onClick={() => handleRemoveWish(wishItem._id)}>Remove</Button>
+              <Button onClick={() => handleRemoveWish(wishItem._id)} color='red'>
+                Remove
+              </Button>
             </div>
           </div>
         </div>

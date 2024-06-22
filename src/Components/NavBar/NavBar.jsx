@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import SideMenu from './SIdeMenu/SideMenu';
 import { Avatar, Badge, Button, Spinner } from '@material-tailwind/react';
-import { CgMenuRightAlt } from 'react-icons/cg';
+import { CgLogIn, CgMenuRightAlt } from 'react-icons/cg';
 import logo from '../../assets/img/logo.png';
 import { Link } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
@@ -37,7 +37,7 @@ const NavBar = () => {
             <Spinner color='indigo' />
           ) : user ? (
             <div className='flex items-center gap-2'>
-              <Button size='sm' variant='text' className='flex items-center gap-2'>
+              <Button onClick={logout} size='sm' variant='text' className='flex items-center gap-2'>
                 Logout
                 <IoExit className='text-lg' />
               </Button>
@@ -47,7 +47,10 @@ const NavBar = () => {
             </div>
           ) : (
             <Link to={'/login'}>
-              <Button>Login</Button>
+              <Button color='light-blue' className='flex items-center gap-2 rounded-none'>
+                Login
+                <CgLogIn className='text-xl' />
+              </Button>
             </Link>
           )}
         </div>

@@ -31,6 +31,7 @@ const PropertyDetails = () => {
     agentEmail,
     agentImage,
     status,
+    propertyBought,
   } = property;
 
   const { data: propertyReviews = [] } = useQuery({
@@ -73,8 +74,15 @@ const PropertyDetails = () => {
           </div>
         </div>
         {/* image */}
-        <img className='mt-5 h-[700px] w-full' src={image} />
-        {/* details */}
+        <div className='relative'>
+          <img className='mt-5 h-[700px] w-full' src={image} />
+          {propertyBought === 'bought' && (
+            <span className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-green-400 px-4 py-2 font-title text-7xl uppercase text-white'>
+              Sold
+            </span>
+          )}
+        </div>
+        {/* dtails */}
         <div className='my-12 flex items-center justify-around gap-3 rounded-full bg-white p-4 shadow-xl'>
           <div>
             <p className='font-title text-2xl font-semibold'>Location : </p>
@@ -123,6 +131,7 @@ const PropertyDetails = () => {
           </Button>
           <Button
             color='pink'
+            disabled={propertyBought === 'bought' ? true : false}
             className='flex items-center justify-center gap-4 font-title text-lg capitalize'
             onClick={() => {
               handleWishList(id);
