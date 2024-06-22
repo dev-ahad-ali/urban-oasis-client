@@ -77,7 +77,7 @@ const AuthProvider = ({ children }) => {
     return () => {
       unsubscribe();
     };
-  }, [axiosPublic]);
+  }, [axiosPublic, user?.email, user?.providerData]);
 
   const authInfo = {
     login,

@@ -39,7 +39,7 @@ const ReviewCard = ({ review, refetch }) => {
   };
 
   return (
-    <Card color='white' shadow={false} className='w-full max-w-[26rem] px-4 py-2 shadow-xl'>
+    <Card color='white' shadow={false} className='me-12 w-full max-w-[26rem] px-4 py-2 shadow-xl'>
       <CardHeader
         color='transparent'
         floated={false}
