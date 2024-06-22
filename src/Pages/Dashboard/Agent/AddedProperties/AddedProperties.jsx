@@ -120,17 +120,21 @@ const AddedProperties = () => {
                     {/* Delete or Update */}
                     <td className={classes}>
                       <div className='flex items-center gap-3'>
-                        <Tooltip content='Update Property'>
-                          <IconButton
-                            onClick={() => {
-                              setUpdateOpen(true);
-                              setId(_id);
-                            }}
-                            variant='text'
-                          >
-                            <FaEdit className='text-xl text-green-400' />
-                          </IconButton>
-                        </Tooltip>
+                        {status === 'pending' || status === 'verified' ? (
+                          <Tooltip content='Update Property'>
+                            <IconButton
+                              onClick={() => {
+                                setUpdateOpen(true);
+                                setId(_id);
+                              }}
+                              variant='text'
+                            >
+                              <FaEdit className='text-xl text-green-400' />
+                            </IconButton>
+                          </Tooltip>
+                        ) : (
+                          <></>
+                        )}
                         <Tooltip content='Delete Property'>
                           <IconButton
                             onClick={() => {

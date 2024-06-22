@@ -44,6 +44,7 @@ const NavBar = () => {
               <Badge placement='top-end' overlap='circular' color='green' withBorder>
                 <Avatar src={user?.photoURL} alt='avatar' />
               </Badge>
+              <p>{user?.displayName}</p>
             </div>
           ) : (
             <Link to={'/login'}>
