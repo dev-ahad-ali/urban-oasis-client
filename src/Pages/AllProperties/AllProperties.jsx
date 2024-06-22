@@ -32,7 +32,7 @@ const AllProperties = () => {
   }
 
   return (
-    <div>
+    <div className='mx-auto max-w-[1920px] px-6'>
       <h2 className='mx-auto max-w-7xl px-4 py-12 font-title text-5xl capitalize'>
         All listed Properties....
       </h2>
