@@ -6,7 +6,7 @@ _UI Design done by\_ {Myself}_
 
 ### Live Site : [Website Link](https://urban-oasis-indev.web.app/)
 
-### Server Site Repo : [Server Site Repository](https://github.com/programming-hero-web-course1/b9a12-server-side-dev-ahad-ali)
+### Server Site Repo : [Server Site Repository](https://github.com/dev-ahad-ali/urban-oasis-server)
 
 #### Users To Check Out Website Features :
 
